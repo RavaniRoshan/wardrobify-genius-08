@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -25,7 +24,7 @@ interface StyleQuizProps {
 const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
-  const [selectedOptions, setSelectedOptions] = useState<string | string[]>("");
+  const [selectedOptions, setSelectedOptions] = useState<string | string[]>( "");
   const [gender, setGender] = useState<string>("");
   const [measurements, setMeasurements] = useState({
     height: "",
@@ -40,32 +39,25 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
   const [occasionPrefs, setOccasionPrefs] = useState<string[]>([]);
   const [colorPrefs, setColorPrefs] = useState<string[]>([]);
 
-  // First check if we need to show gender selection
   const showGenderStep = currentStep === 1;
-  // Then measurements
   const showMeasurementsStep = gender !== "" && currentStep === 2;
-  // Color preferences
   const showColorStep = showMeasurementsStep && currentStep === 3;
-  // Occasion preferences
   const showOccasionStep = showColorStep && currentStep === 4;
 
-  // Modify original questions
   const currentQuestion = quizQuestions[
     gender === "" && currentStep >= 1 ? 0 : currentStep >= 5 ? currentStep - 4 : currentStep
   ];
-  
-  const totalSteps = quizQuestions.length + 4; // Original + extra steps
+
+  const totalSteps = quizQuestions.length + 4;
   const isLastQuestion = currentStep === totalSteps - 1;
   const isMultiSelect = currentQuestion?.type === "multi-select";
 
-  // Gender options
   const genderOptions = [
     { id: "male", name: "Male", description: "Men's fashion styles and sizes" },
     { id: "female", name: "Female", description: "Women's fashion styles and sizes" },
     { id: "unisex", name: "Non-Binary", description: "Gender-neutral fashion styles" }
   ];
 
-  // Color options
   const colorOptions = [
     { id: "black", name: "Black", description: "Timeless and versatile" },
     { id: "white", name: "White", description: "Clean and minimalist" },
@@ -79,7 +71,6 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
     { id: "gray", name: "Gray", description: "Neutral and sophisticated" }
   ];
 
-  // Occasion options
   const occasionOptions = [
     { id: "casual", name: "Casual", description: "Everyday comfortable wear" },
     { id: "workOffice", name: "Work/Office", description: "Professional attire" },
@@ -138,7 +129,6 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
   };
 
   const handleNext = () => {
-    // Save regular answer
     if (!showGenderStep && !showMeasurementsStep && !showColorStep && !showOccasionStep && currentQuestion) {
       const newAnswer = {
         questionId: currentQuestion.id,
@@ -150,7 +140,6 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
       setAnswers(updatedAnswers);
     }
     
-    // Save gender answer
     if (showGenderStep) {
       const newAnswer = {
         questionId: "gender",
@@ -162,7 +151,6 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
       setAnswers(updatedAnswers);
     }
     
-    // Save measurements
     if (showMeasurementsStep) {
       const newAnswer = {
         questionId: "measurements",
@@ -174,7 +162,6 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
       setAnswers(updatedAnswers);
     }
     
-    // Save color preferences
     if (showColorStep) {
       const newAnswer = {
         questionId: "colorPreferences",
@@ -186,7 +173,6 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
       setAnswers(updatedAnswers);
     }
     
-    // Save occasion preferences
     if (showOccasionStep) {
       const newAnswer = {
         questionId: "occasionPreferences",
@@ -201,7 +187,6 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
     if (isLastQuestion) {
       onComplete(answers);
     } else {
-      // Reset selection for next question if it's not a special step
       if (!showGenderStep && !showMeasurementsStep && !showColorStep && !showOccasionStep) {
         setSelectedOptions(isMultiSelect ? [] : "");
       }
@@ -213,7 +198,6 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
       
-      // Set the selection to the previous answer
       const previousAnswer = answers[currentStep - 1];
       if (previousAnswer && !showGenderStep && !showMeasurementsStep && !showColorStep && !showOccasionStep) {
         setSelectedOptions(previousAnswer.answerId);
@@ -221,14 +205,12 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
     }
   };
 
-  // Determine if next button should be disabled
   const isNextDisabled = () => {
     if (showGenderStep) {
       return gender === "";
     }
     
     if (showMeasurementsStep) {
-      // At least height and one other measurement required
       const requiredFields = gender === "male" 
         ? ["height", "chest", "waist"] 
         : ["height", "bust", "waist", "hips"];
@@ -245,7 +227,6 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
       return occasionPrefs.length === 0;
     }
     
-    // Normal question steps
     return isMultiSelect 
       ? Array.isArray(selectedOptions) && selectedOptions.length === 0 
       : !selectedOptions;

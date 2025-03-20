@@ -40,7 +40,7 @@ const MeasurementsStep = ({
           <Input
             id="height"
             type="text"
-            placeholder="5'10\""
+            placeholder="5'10"
             value={measurements.height}
             onChange={(e) => onMeasurementChange("height", e.target.value)}
           />
