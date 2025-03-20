@@ -7,18 +7,18 @@ import { Link } from "react-router-dom";
 const About = () => {
   const team = [
     {
-      name: "Alex Morgan",
+      name: "Ravani Roshan",
       role: "Founder & CEO",
       bio: "Fashion industry veteran with 10+ years experience in retail and e-commerce.",
     },
     {
-      name: "Jamie Zhang",
+      name: "Shivani Shukla",
       role: "Chief AI Officer",
       bio: "Machine learning expert specializing in recommendation systems and computer vision.",
     },
     {
-      name: "Taylor Reynolds",
-      role: "Lead Stylist",
+      name: "Kashvi",
+      role: "The Honest Leader 😜",
       bio: "Professional stylist who has worked with major brands and celebrities.",
     },
   ];
@@ -39,11 +39,12 @@ const About = () => {
           
           <div className="grid md:grid-cols-2 gap-12 mt-16">
             <FadeIn delay={150}>
-              <div className="aspect-square bg-secondary/40 rounded-xl flex items-center justify-center">
-                <div className="text-center">
-                  <span className="text-6xl">👗</span>
-                  <p className="mt-4 text-muted-foreground">Company Image</p>
-                </div>
+              <div className="aspect-square bg-secondary/40 rounded-xl overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7" 
+                  alt="StyleCurator fashion styling" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </FadeIn>
             
@@ -81,8 +82,28 @@ const About = () => {
               {team.map((member, index) => (
                 <FadeIn key={member.name} delay={index * 150}>
                   <div className="bg-card rounded-xl p-8 shadow-md border border-border/50 text-center">
-                    <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center text-3xl mx-auto mb-6">
-                      {member.name.split(' ').map(n => n[0]).join('')}
+                    <div className="w-24 h-24 rounded-full bg-primary/10 mb-6 mx-auto overflow-hidden">
+                      {index === 0 && (
+                        <img 
+                          src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b" 
+                          alt={member.name} 
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                      {index === 1 && (
+                        <img 
+                          src="https://images.unsplash.com/photo-1518770660439-4636190af475" 
+                          alt={member.name} 
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                      {index === 2 && (
+                        <img 
+                          src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6" 
+                          alt={member.name} 
+                          className="w-full h-full object-cover"
+                        />
+                      )}
                     </div>
                     <h3 className="text-xl font-medium mb-1">{member.name}</h3>
                     <p className="text-primary font-medium mb-4">{member.role}</p>

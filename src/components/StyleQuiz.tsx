@@ -12,9 +12,10 @@ import ColorPreferencesStep from "./quiz/ColorPreferencesStep";
 import OccasionPreferencesStep from "./quiz/OccasionPreferencesStep";
 import QuestionStep from "./quiz/QuestionStep";
 
+// Update the QuizAnswer interface to accept the measurements object type
 interface QuizAnswer {
   questionId: string;
-  answerId: string | string[];
+  answerId: string | string[] | Record<string, string>;
 }
 
 interface StyleQuizProps {
@@ -24,7 +25,7 @@ interface StyleQuizProps {
 const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
-  const [selectedOptions, setSelectedOptions] = useState<string | string[]>( "");
+  const [selectedOptions, setSelectedOptions] = useState<string | string[]>("");
   const [gender, setGender] = useState<string>("");
   const [measurements, setMeasurements] = useState({
     height: "",
@@ -39,10 +40,11 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
   const [occasionPrefs, setOccasionPrefs] = useState<string[]>([]);
   const [colorPrefs, setColorPrefs] = useState<string[]>([]);
 
+  // Fix the TypeScript error by using correct comparison
   const showGenderStep = currentStep === 1;
   const showMeasurementsStep = gender !== "" && currentStep === 2;
-  const showColorStep = showMeasurementsStep && currentStep === 3;
-  const showOccasionStep = showColorStep && currentStep === 4;
+  const showColorStep = currentStep === 3;
+  const showOccasionStep = currentStep === 4;
 
   const currentQuestion = quizQuestions[
     gender === "" && currentStep >= 1 ? 0 : currentStep >= 5 ? currentStep - 4 : currentStep
@@ -152,7 +154,8 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
     }
     
     if (showMeasurementsStep) {
-      const newAnswer = {
+      // The measurements are now compatible with the QuizAnswer interface
+      const newAnswer: QuizAnswer = {
         questionId: "measurements",
         answerId: measurements,
       };
@@ -244,9 +247,13 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
           <CardContent className="p-8">
             {showGenderStep ? (
               <GenderStep 
-                genderOptions={genderOptions}
+                genderOptions={[
+                  { id: "male", name: "Male", description: "Men's fashion styles and sizes" },
+                  { id: "female", name: "Female", description: "Women's fashion styles and sizes" },
+                  { id: "unisex", name: "Non-Binary", description: "Gender-neutral fashion styles" }
+                ]}
                 selectedGender={gender}
-                onGenderSelect={handleGenderSelect}
+                onGenderSelect={setGender}
               />
             ) : showMeasurementsStep ? (
               <MeasurementsStep
@@ -256,13 +263,33 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
               />
             ) : showColorStep ? (
               <ColorPreferencesStep
-                colorOptions={colorOptions}
+                colorOptions={[
+                  { id: "black", name: "Black", description: "Timeless and versatile" },
+                  { id: "white", name: "White", description: "Clean and minimalist" },
+                  { id: "blue", name: "Blue", description: "Calming and dependable" },
+                  { id: "red", name: "Red", description: "Bold and passionate" },
+                  { id: "green", name: "Green", description: "Natural and fresh" },
+                  { id: "yellow", name: "Yellow", description: "Cheerful and energetic" },
+                  { id: "purple", name: "Purple", description: "Creative and luxurious" },
+                  { id: "pink", name: "Pink", description: "Playful and romantic" },
+                  { id: "brown", name: "Brown", description: "Warm and earthy" },
+                  { id: "gray", name: "Gray", description: "Neutral and sophisticated" }
+                ]}
                 selectedColors={colorPrefs}
                 onColorToggle={handleColorToggle}
               />
             ) : showOccasionStep ? (
               <OccasionPreferencesStep
-                occasionOptions={occasionOptions}
+                occasionOptions={[
+                  { id: "casual", name: "Casual", description: "Everyday comfortable wear" },
+                  { id: "workOffice", name: "Work/Office", description: "Professional attire" },
+                  { id: "formal", name: "Formal Events", description: "Elegant and dressy" },
+                  { id: "dateNight", name: "Date Night", description: "Romantic and stylish" },
+                  { id: "outdoor", name: "Outdoor Activities", description: "Functional and practical" },
+                  { id: "workout", name: "Workout", description: "Athletic and comfortable" },
+                  { id: "beachPool", name: "Beach/Pool", description: "Summer and resort wear" },
+                  { id: "partyNightOut", name: "Party/Night Out", description: "Fun and eye-catching" }
+                ]}
                 selectedOccasions={occasionPrefs}
                 onOccasionToggle={handleOccasionToggle}
               />
