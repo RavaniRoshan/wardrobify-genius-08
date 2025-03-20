@@ -12,15 +12,48 @@ interface RecommendationsProps {
 const Recommendations = ({ userAnswers }: RecommendationsProps) => {
   const [items, setItems] = useState(mockRecommendations);
   const [isLoading, setIsLoading] = useState(true);
+  const [savedItems, setSavedItems] = useState<number[]>([]);
 
   useEffect(() => {
     // Simulate loading recommendations based on user answers
     const timer = setTimeout(() => {
+      // In a real app, we'd filter based on user answers
+      // For now, we'll just show mock data
       setIsLoading(false);
+      
+      // Load saved items from localStorage
+      const saved = localStorage.getItem("savedItems");
+      if (saved) {
+        setSavedItems(JSON.parse(saved));
+      }
     }, 1500);
     
     return () => clearTimeout(timer);
   }, [userAnswers]);
+
+  // Function to generate random purchase links
+  const getPurchaseLink = (itemId: number, store: string) => {
+    if (store === "amazon") {
+      return `https://www.amazon.com/s?k=fashion+${itemId}`;
+    } else {
+      return `https://www.flipkart.com/search?q=fashion+${itemId}`;
+    }
+  };
+
+  const toggleSaveItem = (itemId: number) => {
+    setSavedItems(prev => {
+      let newSavedItems;
+      if (prev.includes(itemId)) {
+        newSavedItems = prev.filter(id => id !== itemId);
+      } else {
+        newSavedItems = [...prev, itemId];
+      }
+      
+      // Save to localStorage
+      localStorage.setItem("savedItems", JSON.stringify(newSavedItems));
+      return newSavedItems;
+    });
+  };
 
   if (isLoading) {
     return (
@@ -79,8 +112,26 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
                 <div className="text-sm text-muted-foreground mb-3">{item.brand}</div>
                 <p className="text-sm">{item.description}</p>
               </CardContent>
-              <CardFooter className="px-6 pb-6 pt-0">
-                <Button className="w-full rounded-full">Add to Wardrobe</Button>
+              <CardFooter className="px-6 pb-6 pt-0 flex flex-col space-y-2">
+                <Button 
+                  variant={savedItems.includes(item.id) ? "default" : "outline"} 
+                  className="w-full rounded-full mb-2"
+                  onClick={() => toggleSaveItem(item.id)}
+                >
+                  {savedItems.includes(item.id) ? "Saved to Wardrobe" : "Add to Wardrobe"}
+                </Button>
+                <div className="grid grid-cols-2 gap-2">
+                  <a href={getPurchaseLink(item.id, "amazon")} target="_blank" rel="noopener noreferrer">
+                    <Button variant="secondary" size="sm" className="w-full">
+                      Amazon
+                    </Button>
+                  </a>
+                  <a href={getPurchaseLink(item.id, "flipkart")} target="_blank" rel="noopener noreferrer">
+                    <Button variant="secondary" size="sm" className="w-full">
+                      Flipkart
+                    </Button>
+                  </a>
+                </div>
               </CardFooter>
             </Card>
           </FadeIn>

@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import StyleQuiz from "@/components/StyleQuiz";
 import Recommendations from "@/components/Recommendations";
@@ -10,6 +11,7 @@ const Index = () => {
   const [showQuiz, setShowQuiz] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [userAnswers, setUserAnswers] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   const handleStartQuiz = () => {
     setShowQuiz(true);
@@ -32,6 +34,10 @@ const Index = () => {
         block: "start"
       });
     }, 100);
+  };
+
+  const handleExploreCollections = () => {
+    navigate("/collections");
   };
 
   return (
@@ -75,6 +81,7 @@ const Index = () => {
                 size="lg"
                 variant="outline"
                 className="rounded-full px-8 border-primary/20 hover:border-primary/50 transition-all text-base"
+                onClick={handleExploreCollections}
               >
                 Explore Collections
               </Button>
@@ -260,21 +267,23 @@ const Index = () => {
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center mb-8 md:mb-0">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
-                <span className="text-primary font-semibold text-sm">SC</span>
-              </div>
-              <h3 className="text-xl font-medium">
-                Style<span className="text-primary font-semibold">Curator</span>
-              </h3>
+              <Link to="/" className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                  <span className="text-primary font-semibold text-sm">SC</span>
+                </div>
+                <h3 className="text-xl font-medium">
+                  Style<span className="text-primary font-semibold">Curator</span>
+                </h3>
+              </Link>
             </div>
             
             <div className="flex flex-wrap justify-center gap-8 mb-8 md:mb-0">
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
                 About
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                Features
-              </a>
+              </Link>
+              <Link to="/how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
+                How It Works
+              </Link>
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
                 Privacy
               </a>
