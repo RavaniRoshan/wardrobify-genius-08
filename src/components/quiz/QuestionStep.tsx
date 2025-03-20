@@ -6,6 +6,7 @@ interface QuestionOption {
   id: string;
   name: string;
   description: string;
+  image?: string;
 }
 
 interface Question {
@@ -47,7 +48,8 @@ const QuestionStep = ({
               isSelected={isSelected}
               onClick={() => onOptionSelect(option.id)}
               aspectRatio="aspect-[4/3]"
-              icon={option.id.charAt(0).toUpperCase()}
+              image={option.image}
+              icon={!option.image ? option.id.charAt(0).toUpperCase() : undefined}
             />
           );
         })}

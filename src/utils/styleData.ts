@@ -5,37 +5,37 @@ export const styleCategories = [
     id: "minimalist",
     name: "Minimalist",
     description: "Clean lines, neutral colors, and simple silhouettes.",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625",
   },
   {
     id: "classic",
     name: "Classic",
     description: "Timeless pieces with structured shapes and refined details.",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
   },
   {
     id: "bohemian",
     name: "Bohemian",
     description: "Free-spirited looks with flowing fabrics and artisanal details.",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07",
   },
   {
     id: "streetwear",
     name: "Streetwear",
     description: "Urban-inspired casual wear with bold graphics and oversized fits.",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
   },
   {
     id: "preppy",
     name: "Preppy",
     description: "Polished, collegiate-inspired pieces with crisp details.",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
   },
   {
     id: "avant-garde",
     name: "Avant-Garde",
     description: "Experimental silhouettes and unconventional combinations.",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1458668383970-8ddd3927deed",
   },
 ];
 

@@ -8,6 +8,7 @@ interface OptionCardProps {
   isSelected: boolean;
   onClick: () => void;
   icon?: React.ReactNode;
+  image?: string;
   aspectRatio?: string;
   showCheckmark?: boolean;
   checkmarkPosition?: { top: string; right: string };
@@ -23,6 +24,7 @@ const OptionCard = ({
   isSelected,
   onClick,
   icon,
+  image,
   aspectRatio = "aspect-[4/3]",
   showCheckmark = true,
   checkmarkPosition = { top: "3", right: "3" },
@@ -40,16 +42,22 @@ const OptionCard = ({
       }`}
       onClick={onClick}
     >
-      {icon && (
-        <div className={`${aspectRatio} bg-secondary/50 flex items-center justify-center`}>
+      <div className={`${aspectRatio} bg-secondary/50 flex items-center justify-center`}>
+        {image ? (
+          <img 
+            src={image} 
+            alt={name} 
+            className="w-full h-full object-cover"
+          />
+        ) : icon ? (
           <div 
             className={`w-${iconSize.width} h-${iconSize.height} rounded-full bg-secondary flex items-center justify-center`}
             style={backgroundColor ? { backgroundColor } : undefined}
           >
             {icon}
           </div>
-        </div>
-      )}
+        ) : null}
+      </div>
       <div className="p-4">
         <h4 className="font-medium">{name}</h4>
         <p className="text-sm text-muted-foreground mt-1">

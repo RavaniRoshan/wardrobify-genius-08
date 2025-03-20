@@ -12,7 +12,6 @@ import ColorPreferencesStep from "./quiz/ColorPreferencesStep";
 import OccasionPreferencesStep from "./quiz/OccasionPreferencesStep";
 import QuestionStep from "./quiz/QuestionStep";
 
-// Update the QuizAnswer interface to accept the measurements object type
 interface QuizAnswer {
   questionId: string;
   answerId: string | string[] | Record<string, string>;
@@ -25,7 +24,7 @@ interface StyleQuizProps {
 const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
-  const [selectedOptions, setSelectedOptions] = useState<string | string[]>("");
+  const [selectedOptions, setSelectedOptions] = useState<string | string[]>( "");
   const [gender, setGender] = useState<string>("");
   const [measurements, setMeasurements] = useState({
     height: "",
@@ -40,7 +39,6 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
   const [occasionPrefs, setOccasionPrefs] = useState<string[]>([]);
   const [colorPrefs, setColorPrefs] = useState<string[]>([]);
 
-  // Fix the TypeScript error by using correct comparison
   const showGenderStep = currentStep === 1;
   const showMeasurementsStep = gender !== "" && currentStep === 2;
   const showColorStep = currentStep === 3;
@@ -154,10 +152,9 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
     }
     
     if (showMeasurementsStep) {
-      // The measurements are now compatible with the QuizAnswer interface
       const newAnswer: QuizAnswer = {
         questionId: "measurements",
-        answerId: measurements,
+        answerId: { ...measurements }
       };
       
       const updatedAnswers = [...answers];
