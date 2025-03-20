@@ -1,11 +1,15 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { quizQuestions } from "@/utils/styleData";
 import FadeIn from "./FadeIn";
+import QuizProgress from "./quiz/QuizProgress";
+import GenderStep from "./quiz/GenderStep";
+import MeasurementsStep from "./quiz/MeasurementsStep";
+import ColorPreferencesStep from "./quiz/ColorPreferencesStep";
+import OccasionPreferencesStep from "./quiz/OccasionPreferencesStep";
+import QuestionStep from "./quiz/QuestionStep";
 
 interface QuizAnswer {
   questionId: string;
@@ -48,7 +52,8 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
     gender === "" && currentStep >= 1 ? 0 : currentStep >= 5 ? currentStep - 4 : currentStep
   ];
   
-  const isLastQuestion = currentStep === quizQuestions.length + 4 - 1;
+  const totalSteps = quizQuestions.length + 4; // Original + extra steps
+  const isLastQuestion = currentStep === totalSteps - 1;
   const isMultiSelect = currentQuestion?.type === "multi-select";
 
   // Gender options
@@ -244,361 +249,47 @@ const StyleQuiz = ({ onComplete }: StyleQuizProps) => {
       : !selectedOptions;
   };
 
-  // Calculate progress percentage
-  const calculateProgress = () => {
-    const totalSteps = quizQuestions.length + 4; // Original + extra steps
-    return ((currentStep + 1) / totalSteps) * 100;
-  };
-
-  const renderGenderStep = () => (
-    <div>
-      <h3 className="text-xl font-medium mb-6">Select your gender</h3>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        {genderOptions.map((option) => {
-          const isSelected = gender === option.id;
-          
-          return (
-            <div
-              key={option.id}
-              className={`relative cursor-pointer transition-all duration-300 rounded-lg overflow-hidden ${
-                isSelected 
-                  ? "ring-2 ring-primary scale-[1.02] shadow-md" 
-                  : "ring-1 ring-border hover:ring-primary/50"
-              }`}
-              onClick={() => handleGenderSelect(option.id)}
-            >
-              <div className="aspect-square bg-secondary/50 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center text-2xl">
-                  {option.id === "male" ? "♂" : option.id === "female" ? "♀" : "⚧"}
-                </div>
-              </div>
-              <div className="p-4">
-                <h4 className="font-medium">{option.name}</h4>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {option.description}
-                </p>
-              </div>
-              {isSelected && (
-                <div className="absolute top-3 right-3 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="w-4 h-4 text-primary-foreground"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-
-  const renderMeasurementsStep = () => {
-    const isMale = gender === "male";
-    
-    return (
-      <div>
-        <h3 className="text-xl font-medium mb-6">Your measurements</h3>
-        <p className="text-muted-foreground mb-6">
-          This helps us recommend the right fit for your body type. All measurements are in inches.
-        </p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-8">
-          <div className="space-y-2">
-            <Label htmlFor="height">Height</Label>
-            <Input
-              id="height"
-              type="text"
-              placeholder="5'10\""
-              value={measurements.height}
-              onChange={(e) => handleMeasurementChange("height", e.target.value)}
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="weight">Weight (optional)</Label>
-            <Input
-              id="weight"
-              type="text"
-              placeholder="170 lbs"
-              value={measurements.weight}
-              onChange={(e) => handleMeasurementChange("weight", e.target.value)}
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor={isMale ? "chest" : "bust"}>{isMale ? "Chest" : "Bust"}</Label>
-            <Input
-              id={isMale ? "chest" : "bust"}
-              type="text"
-              placeholder="42 inches"
-              value={measurements.chest}
-              onChange={(e) => handleMeasurementChange("chest", e.target.value)}
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="waist">Waist</Label>
-            <Input
-              id="waist"
-              type="text"
-              placeholder="34 inches"
-              value={measurements.waist}
-              onChange={(e) => handleMeasurementChange("waist", e.target.value)}
-            />
-          </div>
-          
-          {!isMale && (
-            <div className="space-y-2">
-              <Label htmlFor="hips">Hips</Label>
-              <Input
-                id="hips"
-                type="text"
-                placeholder="40 inches"
-                value={measurements.hips}
-                onChange={(e) => handleMeasurementChange("hips", e.target.value)}
-              />
-            </div>
-          )}
-          
-          <div className="space-y-2">
-            <Label htmlFor="shoeSize">Shoe Size</Label>
-            <Input
-              id="shoeSize"
-              type="text"
-              placeholder={isMale ? "10.5 US Men's" : "8 US Women's"}
-              value={measurements.shoeSize}
-              onChange={(e) => handleMeasurementChange("shoeSize", e.target.value)}
-            />
-          </div>
-          
-          {isMale && (
-            <div className="space-y-2">
-              <Label htmlFor="neckSize">Neck Size (optional)</Label>
-              <Input
-                id="neckSize"
-                type="text"
-                placeholder="16 inches"
-                value={measurements.neckSize}
-                onChange={(e) => handleMeasurementChange("neckSize", e.target.value)}
-              />
-            </div>
-          )}
-          
-          <div className="space-y-2">
-            <Label htmlFor="inseam">Inseam (optional)</Label>
-            <Input
-              id="inseam"
-              type="text"
-              placeholder="32 inches"
-              value={measurements.inseam}
-              onChange={(e) => handleMeasurementChange("inseam", e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderColorPreferences = () => (
-    <div>
-      <h3 className="text-xl font-medium mb-6">Select your preferred colors</h3>
-      <p className="text-muted-foreground mb-6">
-        Choose as many as you like. These will influence your style recommendations.
-      </p>
-      
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-        {colorOptions.map((color) => {
-          const isSelected = colorPrefs.includes(color.id);
-          
-          return (
-            <div
-              key={color.id}
-              className={`relative cursor-pointer transition-all duration-300 rounded-lg overflow-hidden ${
-                isSelected 
-                  ? "ring-2 ring-primary scale-[1.02] shadow-md" 
-                  : "ring-1 ring-border hover:ring-primary/50"
-              }`}
-              onClick={() => handleColorToggle(color.id)}
-            >
-              <div
-                className="aspect-square flex items-center justify-center"
-                style={{ backgroundColor: color.id === "white" ? "#f8f8f8" : color.id }}
-              >
-                {color.id === "white" && (
-                  <span className="text-black text-opacity-70">White</span>
-                )}
-              </div>
-              <div className="p-3 bg-card">
-                <h4 className="font-medium text-sm">{color.name}</h4>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {color.description}
-                </p>
-              </div>
-              {isSelected && (
-                <div className="absolute top-2 right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="w-3 h-3 text-primary-foreground"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-
-  const renderOccasionPreferences = () => (
-    <div>
-      <h3 className="text-xl font-medium mb-6">What occasions are you dressing for?</h3>
-      <p className="text-muted-foreground mb-6">
-        Select all that apply. Your recommendations will focus on these situations.
-      </p>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {occasionOptions.map((option) => {
-          const isSelected = occasionPrefs.includes(option.id);
-          
-          return (
-            <div
-              key={option.id}
-              className={`relative cursor-pointer transition-all duration-300 rounded-lg overflow-hidden ${
-                isSelected 
-                  ? "ring-2 ring-primary scale-[1.02] shadow-md" 
-                  : "ring-1 ring-border hover:ring-primary/50"
-              }`}
-              onClick={() => handleOccasionToggle(option.id)}
-            >
-              <div className="p-4">
-                <h4 className="font-medium">{option.name}</h4>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {option.description}
-                </p>
-              </div>
-              {isSelected && (
-                <div className="absolute top-3 right-3 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="w-4 h-4 text-primary-foreground"
-                  >
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-
   return (
     <div className="w-full max-w-4xl mx-auto">
       <FadeIn>
-        <div className="flex items-center justify-between mb-8">
-          <div className="space-y-1">
-            <h2 className="text-2xl font-medium">Style Quiz</h2>
-            <p className="text-muted-foreground">
-              Step {currentStep + 1} of {quizQuestions.length + 4}
-            </p>
-          </div>
-          <div className="w-64 h-2 bg-secondary rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-primary transition-all duration-500 ease-out-expo"
-              style={{ 
-                width: `${calculateProgress()}%` 
-              }}
-            ></div>
-          </div>
-        </div>
+        <QuizProgress 
+          currentStep={currentStep} 
+          totalSteps={totalSteps} 
+        />
 
         <Card className="border-0 shadow-lg bg-card/50 backdrop-blur-md">
           <CardContent className="p-8">
             {showGenderStep ? (
-              renderGenderStep()
+              <GenderStep 
+                genderOptions={genderOptions}
+                selectedGender={gender}
+                onGenderSelect={handleGenderSelect}
+              />
             ) : showMeasurementsStep ? (
-              renderMeasurementsStep()
+              <MeasurementsStep
+                measurements={measurements}
+                gender={gender}
+                onMeasurementChange={handleMeasurementChange}
+              />
             ) : showColorStep ? (
-              renderColorPreferences()
+              <ColorPreferencesStep
+                colorOptions={colorOptions}
+                selectedColors={colorPrefs}
+                onColorToggle={handleColorToggle}
+              />
             ) : showOccasionStep ? (
-              renderOccasionPreferences()
+              <OccasionPreferencesStep
+                occasionOptions={occasionOptions}
+                selectedOccasions={occasionPrefs}
+                onOccasionToggle={handleOccasionToggle}
+              />
             ) : (
-              <>
-                <h3 className="text-xl font-medium mb-6">{currentQuestion.question}</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                  {currentQuestion.options.map((option) => {
-                    const isSelected = isMultiSelect
-                      ? Array.isArray(selectedOptions) && selectedOptions.includes(option.id)
-                      : selectedOptions === option.id;
-                    
-                    return (
-                      <div
-                        key={option.id}
-                        className={`relative cursor-pointer transition-all duration-300 rounded-lg overflow-hidden ${
-                          isSelected 
-                            ? "ring-2 ring-primary scale-[1.02] shadow-md" 
-                            : "ring-1 ring-border hover:ring-primary/50"
-                        }`}
-                        onClick={() => handleOptionSelect(option.id)}
-                      >
-                        <div className="aspect-[4/3] bg-secondary/50 flex items-center justify-center">
-                          <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
-                            {option.id.charAt(0).toUpperCase()}
-                          </div>
-                        </div>
-                        <div className="p-4">
-                          <h4 className="font-medium">{option.name}</h4>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            {option.description}
-                          </p>
-                        </div>
-                        {isSelected && (
-                          <div className="absolute top-3 right-3 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="w-4 h-4 text-primary-foreground"
-                            >
-                              <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </>
+              <QuestionStep
+                question={currentQuestion}
+                selectedOptions={selectedOptions}
+                onOptionSelect={handleOptionSelect}
+                isMultiSelect={isMultiSelect}
+              />
             )}
 
             <div className="flex justify-between pt-2">
