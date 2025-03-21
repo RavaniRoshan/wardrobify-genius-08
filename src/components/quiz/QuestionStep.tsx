@@ -31,7 +31,7 @@ const QuestionStep = ({
 }: QuestionStepProps) => {
   return (
     <>
-      <h3 className="text-xl font-medium mb-6 text-secondary dark:text-white">{question.question}</h3>
+      <h3 className="text-xl font-medium mb-6">{question.question}</h3>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {question.options.map((option) => {

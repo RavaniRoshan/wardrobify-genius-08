@@ -72,8 +72,7 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 size="lg"
-                variant="primary"
-                className="rounded-full px-8 transition-all text-base font-medium"
+                className="rounded-full px-8 bg-primary/90 hover:bg-primary transition-all text-base"
                 onClick={handleStartQuiz}
               >
                 Take Style Quiz
@@ -81,7 +80,7 @@ const Index = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full px-8 border-secondary/20 hover:border-secondary/50 transition-all text-base"
+                className="rounded-full px-8 border-primary/20 hover:border-primary/50 transition-all text-base"
                 onClick={handleExploreCollections}
               >
                 Explore Collections
@@ -179,8 +178,7 @@ const Index = () => {
                 </p>
                 <Button
                   size="lg"
-                  variant="primary"
-                  className="rounded-full px-8 font-medium"
+                  className="rounded-full px-8"
                   onClick={handleStartQuiz}
                 >
                   Start the Quiz
@@ -254,8 +252,7 @@ const Index = () => {
               </p>
               <Button
                 size="lg"
-                variant="primary"
-                className="rounded-full px-8 font-medium"
+                className="rounded-full px-8"
                 onClick={handleStartQuiz}
               >
                 Take the Style Quiz
