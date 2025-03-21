@@ -10,6 +10,7 @@ const About = () => {
       name: "Ravani Roshan",
       role: "Founder & CEO",
       bio: "Fashion industry veteran with 10+ years experience in retail and e-commerce.",
+      image: "/lovable-uploads/1bd812a3-7658-432a-8793-30dd2b55d03b.png"
     },
     {
       name: "Shivani Shukla",
@@ -83,7 +84,14 @@ const About = () => {
                 <FadeIn key={member.name} delay={index * 150}>
                   <div className="bg-card rounded-xl p-8 shadow-md border border-border/50 text-center">
                     <div className="w-24 h-24 rounded-full bg-primary/10 mb-6 mx-auto overflow-hidden">
-                      {index === 0 && (
+                      {index === 0 && member.image && (
+                        <img 
+                          src={member.image}
+                          alt={member.name} 
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                      {index === 0 && !member.image && (
                         <img 
                           src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b" 
                           alt={member.name} 
