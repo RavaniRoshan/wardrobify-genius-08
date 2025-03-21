@@ -25,6 +25,12 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				nike: {
+					red: '#e63946',
+					black: '#111111',
+					gray: '#f4f4f4',
+					darkgray: '#767676'
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
