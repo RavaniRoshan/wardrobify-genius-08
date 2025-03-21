@@ -37,12 +37,12 @@ const OptionCard = ({
       key={id}
       className={`relative cursor-pointer transition-all duration-300 rounded-lg overflow-hidden ${
         isSelected 
-          ? "ring-2 ring-primary scale-[1.02] shadow-md" 
-          : "ring-1 ring-border hover:ring-primary/50"
+          ? "ring-2 ring-accent scale-[1.02] shadow-md" 
+          : "ring-1 ring-border hover:ring-accent/50"
       }`}
       onClick={onClick}
     >
-      <div className={`${aspectRatio} bg-secondary/50 flex items-center justify-center`}>
+      <div className={`${aspectRatio} bg-secondary/10 flex items-center justify-center`}>
         {image ? (
           <img 
             src={image} 
@@ -65,7 +65,7 @@ const OptionCard = ({
         </p>
       </div>
       {isSelected && showCheckmark && (
-        <div className={`absolute top-${checkmarkPosition.top} right-${checkmarkPosition.right} w-${checkmarkSize.width} h-${checkmarkSize.height} bg-primary rounded-full flex items-center justify-center`}>
+        <div className={`absolute top-${checkmarkPosition.top} right-${checkmarkPosition.right} w-${checkmarkSize.width} h-${checkmarkSize.height} bg-accent rounded-full flex items-center justify-center`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -74,7 +74,7 @@ const OptionCard = ({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={`w-${parseInt(checkmarkSize.width) - 2} h-${parseInt(checkmarkSize.height) - 2} text-primary-foreground`}
+            className={`w-${parseInt(checkmarkSize.width) - 2} h-${parseInt(checkmarkSize.height) - 2} text-accent-foreground`}
           >
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
