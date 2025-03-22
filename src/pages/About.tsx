@@ -1,4 +1,3 @@
-
 import Header from "@/components/Header";
 import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,7 @@ const About = () => {
     {
       name: "Ravani Roshan",
       role: "Founder & CEO",
-      bio: "Fashion industry veteran with 10+ years experience in retail and e-commerce.",
+      bio: "Creator of StyleCurator",
       image: "/lovable-uploads/1bd812a3-7658-432a-8793-30dd2b55d03b.png"
     },
     {
