@@ -1,17 +1,18 @@
-
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import StyleQuiz from "@/components/StyleQuiz";
 import Recommendations from "@/components/Recommendations";
 import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
+import { AuthContext } from "../App";
 
 const Index = () => {
   const [showQuiz, setShowQuiz] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [userAnswers, setUserAnswers] = useState<any[]>([]);
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   const handleStartQuiz = () => {
     setShowQuiz(true);
@@ -54,6 +55,16 @@ const Index = () => {
               Discover your perfect style
             </span>
           </FadeIn>
+          
+          {auth?.isAuthenticated && auth.user && (
+            <FadeIn delay={100}>
+              <div className="mb-4">
+                <span className="text-lg md:text-xl font-medium text-nike-red">
+                  Welcome, {auth.user.name || auth.user.email?.split('@')[0] || 'Style Enthusiast'}!
+                </span>
+              </div>
+            </FadeIn>
+          )}
           
           <FadeIn delay={150}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 max-w-4xl leading-tight md:leading-tight">
