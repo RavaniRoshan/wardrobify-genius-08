@@ -21,7 +21,9 @@ const buttonVariants = cva(
           "bg-accent text-accent-foreground hover:bg-accent/90",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        nike: "bg-nike-red text-white hover:bg-nike-red/90 rounded-full uppercase tracking-wider font-medium",
+        myntra: "bg-myntra-pink text-white hover:bg-myntra-pink/90 rounded-md font-medium",
+        myntraOutline: "border border-myntra-purple bg-transparent text-myntra-purple hover:bg-myntra-purple hover:text-white rounded-md font-medium",
+        myntraSecondary: "bg-myntra-teal text-white hover:bg-myntra-teal/90 rounded-md font-medium",
       },
       size: {
         default: "h-10 px-4 py-2",

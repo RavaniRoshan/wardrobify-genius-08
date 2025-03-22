@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import QuizProgress from './quiz/QuizProgress';
 import GenderStep from './quiz/GenderStep';
@@ -50,38 +51,29 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
   };
 
   const handleInputChange = (field: string, value: string | string[] | Record<string, string>) => {
-    if (field === 'measurements') {
-      // Handle measurements as an object with specific type handling
-      setUserSelections((prev) => ({
-        ...prev,
-        [field]: value as Record<string, string>,
-      }));
-    } else {
-      // Handle other fields (string or string[])
-      setUserSelections((prev) => ({
-        ...prev,
-        [field]: value as SetStateAction<string | string[]>,
-      }));
-    }
+    setUserSelections((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
 
   return (
     <FadeIn>
-      <div className="bg-background rounded-lg shadow-md p-8">
+      <div className="bg-background rounded-lg shadow-md p-8 myntra-card">
         <QuizProgress currentStep={step} totalSteps={totalSteps} />
 
         {step === 1 && (
           <GenderStep
-            value={userSelections.gender}
-            onChange={(value) => handleInputChange('gender', value)}
+            selectedGender={userSelections.gender}
+            onSelect={(value) => handleInputChange('gender', value)}
             onNext={nextStep}
           />
         )}
 
         {step === 2 && (
           <OccasionPreferencesStep
-            value={userSelections.occasionPreferences}
-            onChange={(value) => handleInputChange('occasionPreferences', value)}
+            selectedOccasions={userSelections.occasionPreferences}
+            onSelect={(value) => handleInputChange('occasionPreferences', value)}
             onNext={nextStep}
             onPrev={prevStep}
           />
@@ -89,8 +81,8 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
 
         {step === 3 && (
           <ColorPreferencesStep
-            value={userSelections.colorPreferences}
-            onChange={(value) => handleInputChange('colorPreferences', value)}
+            selectedColors={userSelections.colorPreferences}
+            onSelect={(value) => handleInputChange('colorPreferences', value)}
             onNext={nextStep}
             onPrev={prevStep}
           />
@@ -98,8 +90,8 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
 
         {step === 4 && (
           <MeasurementsStep
-            value={userSelections.measurements}
-            onChange={(value) => handleInputChange('measurements', value)}
+            measurements={userSelections.measurements}
+            onMeasurementsChange={(value) => handleInputChange('measurements', value)}
             onNext={nextStep}
             onPrev={prevStep}
           />
@@ -109,7 +101,7 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
           <QuestionStep
             question="What is your favorite type of clothing?"
             field="question1"
-            value={userSelections.question1}
+            answer={userSelections.question1}
             onChange={(value) => handleInputChange('question1', value)}
             onNext={nextStep}
             onPrev={prevStep}
@@ -120,7 +112,7 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
           <QuestionStep
             question="What is your preferred style aesthetic?"
             field="question2"
-            value={userSelections.question2}
+            answer={userSelections.question2}
             onChange={(value) => handleInputChange('question2', value)}
             onNext={() => {
               handleInputChange('question3', 'value3');
@@ -131,13 +123,13 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
         )}
 
         <div className="flex justify-between mt-6">
-          {step > 1 && step <=5 && (
-            <Button variant="outline" onClick={prevStep}>
+          {step > 1 && step <= 5 && (
+            <Button variant="myntraOutline" onClick={prevStep}>
               Previous
             </Button>
           )}
           {step === totalSteps && (
-            <Button onClick={handleSubmit}>
+            <Button variant="myntra" onClick={handleSubmit}>
               Complete
             </Button>
           )}
