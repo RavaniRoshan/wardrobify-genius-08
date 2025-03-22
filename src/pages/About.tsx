@@ -1,3 +1,4 @@
+
 import Header from "@/components/Header";
 import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,7 @@ const About = () => {
     {
       name: "Shivani Shukla",
       role: "Chief AI Officer",
-      bio: "Machine learning expert specializing in recommendation systems and computer vision.",
+      bio: "co-developer and adviser",
     },
     {
       name: "Kashvi",
