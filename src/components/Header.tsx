@@ -79,13 +79,13 @@ const Header = () => {
             
             {auth?.isAuthenticated ? (
               <div className="flex items-center space-x-4">
-                <span className="text-sm">
+                <span className="text-sm font-medium bg-primary/10 py-1 px-4 rounded-full text-primary">
                   {auth.user?.name || auth.user?.email}
                 </span>
                 <Button
                   size="sm"
-                  variant="outline"
-                  className="rounded-full px-6 border-primary/20 hover:border-primary/50 transition-all"
+                  variant="nike"
+                  className="px-6"
                   onClick={handleSignOut}
                 >
                   Sign Out
@@ -105,7 +105,8 @@ const Header = () => {
                 <Link to="/sign-up">
                   <Button
                     size="sm"
-                    className="rounded-full px-6 bg-primary/90 hover:bg-primary transition-all"
+                    variant="nike"
+                    className="px-6"
                   >
                     Get Started
                   </Button>
@@ -172,12 +173,11 @@ const Header = () => {
             <div className="pt-2 border-t border-border/30 flex flex-col space-y-3">
               {auth?.isAuthenticated ? (
                 <>
-                  <div className="text-sm px-1">
-                    Signed in as {auth.user?.name || auth.user?.email}
+                  <div className="text-sm font-medium px-4 py-2 bg-primary/10 rounded-full text-primary text-center">
+                    {auth.user?.name || auth.user?.email}
                   </div>
                   <Button
-                    variant="outline"
-                    className="rounded-full border-primary/20 hover:border-primary/50 transition-all"
+                    variant="nike"
                     onClick={() => {
                       handleSignOut();
                       setMobileMenuOpen(false);
@@ -198,7 +198,8 @@ const Header = () => {
                   </Link>
                   <Link to="/sign-up" onClick={() => setMobileMenuOpen(false)}>
                     <Button
-                      className="w-full rounded-full bg-primary/90 hover:bg-primary transition-all"
+                      className="w-full"
+                      variant="nike"
                     >
                       Get Started
                     </Button>
