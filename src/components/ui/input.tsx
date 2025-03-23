@@ -26,7 +26,7 @@ const inputVariants = cva(
 )
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>,
     VariantProps<typeof inputVariants> {
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
@@ -46,7 +46,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               inputVariants({ 
                 variant: iconPosition === "left" ? "withIcon" : undefined,
                 size,
-                className: className 
+                className 
               }),
               iconPosition === "right" && "pr-9"
             )}

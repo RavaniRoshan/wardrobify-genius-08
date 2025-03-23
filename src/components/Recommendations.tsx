@@ -1,10 +1,9 @@
-
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { mockRecommendations } from "@/utils/styleData";
 import FadeIn from "./FadeIn";
-import { Heart, ExternalLink, RefreshCw, Shirt, PantsIcon, Footprints } from "lucide-react";
+import { Heart, ExternalLink, RefreshCw, Shirt, Pants, Footprints } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
 interface RecommendationsProps {
@@ -29,19 +28,14 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
   const [outfitNames, setOutfitNames] = useState<Record<number, string>>({});
 
   useEffect(() => {
-    // Simulate loading recommendations based on user answers
     const timer = setTimeout(() => {
-      // In a real app, we'd filter based on user answers
-      // For now, we'll just show mock data
       setIsLoading(false);
       
-      // Load saved items from localStorage
       const saved = localStorage.getItem("savedItems");
       if (saved) {
         setSavedItems(JSON.parse(saved));
       }
       
-      // Assign random outfit themes
       const names: Record<number, string> = {};
       mockRecommendations.forEach(item => {
         names[item.id] = outfitThemes[Math.floor(Math.random() * outfitThemes.length)];
@@ -52,7 +46,6 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
     return () => clearTimeout(timer);
   }, [userAnswers]);
 
-  // Function to generate random purchase links
   const getPurchaseLink = (itemId: number, store: string) => {
     if (store === "amazon") {
       return `https://www.amazon.com/s?k=fashion+${itemId}`;
@@ -79,7 +72,6 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
         });
       }
       
-      // Save to localStorage
       localStorage.setItem("savedItems", JSON.stringify(newSavedItems));
       return newSavedItems;
     });
@@ -88,12 +80,9 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
   const regenerateOutfits = () => {
     setIsLoading(true);
     setTimeout(() => {
-      // Simulate regenerating outfits
-      // In a real app, this would call the AI/backend for new recommendations
       const shuffled = [...mockRecommendations].sort(() => 0.5 - Math.random());
       setItems(shuffled);
       
-      // Assign new random outfit themes
       const names: Record<number, string> = {};
       shuffled.forEach(item => {
         names[item.id] = outfitThemes[Math.floor(Math.random() * outfitThemes.length)];
@@ -169,7 +158,7 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
                     <span className="text-sm font-medium">{item.name.includes("Shirt") ? item.name : "Casual Shirt"}</span>
                   </div>
                   <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-md shadow-sm">
-                    <PantsIcon size={18} className="text-myntra-purple" />
+                    <Pants size={18} className="text-myntra-purple" />
                     <span className="text-sm font-medium">Classic Fit Jeans</span>
                   </div>
                   <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-md shadow-sm">
