@@ -26,7 +26,7 @@ const Logo = ({ size = "md", showText = true }: LogoProps) => {
         <img 
           src="/lovable-uploads/689c3d2c-ff3c-4fb7-8366-9ebd117dd7dd.png" 
           alt="StyleCurator Logo" 
-          className={`${sizeStyles.img} mr-3`}
+          className={`${sizeStyles.img} mr-3 rounded-lg shadow-sm object-cover`}
           width="40"
           height="40"
         />

@@ -26,11 +26,11 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				myntra: {
+					teal: '#15B8A6', /* Updated to match logo teal */
 					purple: '#7E69AB',
 					'purple-light': '#9b87f5',
 					'purple-dark': '#6E59A5',
 					pink: '#FF3E6C',
-					teal: '#14CDA2',
 					yellow: '#FFC210',
 					gray: '#F5F5F6',
 					'gray-dark': '#94969F'

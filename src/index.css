@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
 
-    --primary: 282 68% 60%;
+    --primary: 180 65% 45%; /* Teal color from logo */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;
@@ -23,7 +23,7 @@
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 282 68% 60%;
+    --accent: 265 75% 60%; /* Purple color from logo */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -31,7 +31,7 @@
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 282 68% 60%;
+    --ring: 180 65% 45%;
 
     --radius: 0.5rem;
   }
@@ -46,7 +46,7 @@
     --popover: 0 0% 7%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 282 68% 60%;
+    --primary: 180 65% 45%; /* Teal color from logo */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 15%;
@@ -55,7 +55,7 @@
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 282 68% 60%;
+    --accent: 265 75% 60%; /* Purple color from logo */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
@@ -63,7 +63,7 @@
 
     --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 282 68% 60%;
+    --ring: 180 65% 45%;
   }
 }
 
