@@ -1,4 +1,3 @@
-
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -7,6 +6,7 @@ import Recommendations from "@/components/Recommendations";
 import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
 import { AuthContext } from "../App";
+import Logo from "@/components/Logo";
 
 const Index = () => {
   const [showQuiz, setShowQuiz] = useState(false);
@@ -17,7 +17,6 @@ const Index = () => {
 
   const handleStartQuiz = () => {
     setShowQuiz(true);
-    // Scroll to quiz section
     setTimeout(() => {
       document.getElementById("quiz-section")?.scrollIntoView({ 
         behavior: "smooth",
@@ -29,7 +28,6 @@ const Index = () => {
   const handleQuizComplete = (answers: any[]) => {
     setUserAnswers(answers);
     setQuizCompleted(true);
-    // Scroll to recommendations
     setTimeout(() => {
       document.getElementById("recommendations")?.scrollIntoView({ 
         behavior: "smooth",
@@ -279,14 +277,7 @@ const Index = () => {
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center mb-8 md:mb-0">
-              <Link to="/" className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
-                  <span className="text-primary font-semibold text-sm">SC</span>
-                </div>
-                <h3 className="text-xl font-medium">
-                  Style<span className="text-primary font-semibold">Curator</span>
-                </h3>
-              </Link>
+              <Logo size="md" />
             </div>
             
             <div className="flex flex-wrap justify-center gap-8 mb-8 md:mb-0">

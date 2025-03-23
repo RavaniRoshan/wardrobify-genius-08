@@ -1,9 +1,9 @@
-
 import { Button } from "@/components/ui/button";
 import FadeIn from "./FadeIn";
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
+import Logo from "./Logo";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -44,14 +44,7 @@ const Header = () => {
     >
       <div className="container flex items-center justify-between">
         <FadeIn direction="left" delay={100}>
-          <Link to="/" className="flex items-center">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
-              <span className="text-primary font-semibold text-sm">SC</span>
-            </div>
-            <h1 className="text-xl font-medium">
-              Style<span className="text-primary font-semibold">Curator</span>
-            </h1>
-          </Link>
+          <Logo size="md" />
         </FadeIn>
 
         <FadeIn direction="right" delay={200}>
@@ -142,7 +135,6 @@ const Header = () => {
         </FadeIn>
       </div>
       
-      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md shadow-md">
           <div className="container py-4 space-y-4">
