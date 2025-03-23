@@ -24,6 +24,7 @@ const buttonVariants = cva(
         myntra: "bg-myntra-pink text-white hover:bg-myntra-pink/90 rounded-md font-medium",
         myntraOutline: "border border-myntra-purple bg-transparent text-myntra-purple hover:bg-myntra-purple hover:text-white rounded-md font-medium",
         myntraSecondary: "bg-myntra-teal text-white hover:bg-myntra-teal/90 rounded-md font-medium",
+        nike: "bg-myntra-pink text-white hover:bg-myntra-pink/90 rounded-md font-medium", // Added for backward compatibility
       },
       size: {
         default: "h-10 px-4 py-2",

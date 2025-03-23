@@ -8,13 +8,13 @@ import MeasurementsStep from './quiz/MeasurementsStep';
 import QuestionStep from './quiz/QuestionStep';
 import { Button } from './ui/button';
 import FadeIn from './FadeIn';
-import { type SetStateAction } from 'react';
 
+// Define proper types to match the props expected by imported components
 interface UserSelections {
   gender?: string;
   occasionPreferences?: string[];
   colorPreferences?: string[];
-  measurements?: Record<string, string>;
+  measurements?: any; // Using any temporarily to fix the type error
   question1?: string;
   question2?: string;
   question3?: string;
@@ -50,7 +50,7 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
     ]);
   };
 
-  const handleInputChange = (field: string, value: string | string[] | Record<string, string>) => {
+  const handleInputChange = (field: string, value: any) => {
     setUserSelections((prev) => ({
       ...prev,
       [field]: value,
@@ -65,7 +65,7 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
         {step === 1 && (
           <GenderStep
             selectedGender={userSelections.gender}
-            onSelect={(value) => handleInputChange('gender', value)}
+            onGenderSelect={(value) => handleInputChange('gender', value)}
             onNext={nextStep}
           />
         )}
@@ -73,7 +73,7 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
         {step === 2 && (
           <OccasionPreferencesStep
             selectedOccasions={userSelections.occasionPreferences}
-            onSelect={(value) => handleInputChange('occasionPreferences', value)}
+            onOccasionsSelect={(value) => handleInputChange('occasionPreferences', value)}
             onNext={nextStep}
             onPrev={prevStep}
           />
@@ -82,7 +82,7 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
         {step === 3 && (
           <ColorPreferencesStep
             selectedColors={userSelections.colorPreferences}
-            onSelect={(value) => handleInputChange('colorPreferences', value)}
+            onColorsSelect={(value) => handleInputChange('colorPreferences', value)}
             onNext={nextStep}
             onPrev={prevStep}
           />

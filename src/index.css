@@ -105,8 +105,28 @@
   .myntra-gradient {
     @apply bg-gradient-to-r from-myntra-purple-light to-myntra-purple;
   }
+  
+  /* Add new utility classes for improved UI/UX */
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  .outfit-card {
+    @apply bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300;
+  }
+  
+  .item-tag {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary;
+  }
+  
+  .category-icon {
+    @apply flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary;
+  }
+  
+  .input-with-icon {
+    @apply flex items-center border border-input rounded-md px-3 py-2 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2;
+  }
 }
 
 /* Add font imports */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
-

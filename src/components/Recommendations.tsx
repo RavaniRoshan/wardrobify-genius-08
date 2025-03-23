@@ -4,15 +4,29 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { mockRecommendations } from "@/utils/styleData";
 import FadeIn from "./FadeIn";
+import { Heart, ExternalLink, RefreshCw, Shirt, PantsIcon, Footprints } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
 interface RecommendationsProps {
   userAnswers?: any[];
 }
 
+const outfitThemes = [
+  "Casual Day Out",
+  "Office Ready",
+  "Weekend Vibes",
+  "Evening Elegance",
+  "Outdoor Adventure",
+  "Coffee Shop Meeting",
+  "Brunch Perfect",
+  "Night in the City"
+];
+
 const Recommendations = ({ userAnswers }: RecommendationsProps) => {
   const [items, setItems] = useState(mockRecommendations);
   const [isLoading, setIsLoading] = useState(true);
   const [savedItems, setSavedItems] = useState<number[]>([]);
+  const [outfitNames, setOutfitNames] = useState<Record<number, string>>({});
 
   useEffect(() => {
     // Simulate loading recommendations based on user answers
@@ -26,6 +40,13 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
       if (saved) {
         setSavedItems(JSON.parse(saved));
       }
+      
+      // Assign random outfit themes
+      const names: Record<number, string> = {};
+      mockRecommendations.forEach(item => {
+        names[item.id] = outfitThemes[Math.floor(Math.random() * outfitThemes.length)];
+      });
+      setOutfitNames(names);
     }, 1500);
     
     return () => clearTimeout(timer);
@@ -45,14 +66,47 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
       let newSavedItems;
       if (prev.includes(itemId)) {
         newSavedItems = prev.filter(id => id !== itemId);
+        toast({
+          title: "Outfit removed",
+          description: "The outfit has been removed from your wardrobe.",
+        });
       } else {
         newSavedItems = [...prev, itemId];
+        toast({
+          title: "Outfit saved",
+          description: "The outfit has been saved to your wardrobe.",
+          variant: "default",
+        });
       }
       
       // Save to localStorage
       localStorage.setItem("savedItems", JSON.stringify(newSavedItems));
       return newSavedItems;
     });
+  };
+
+  const regenerateOutfits = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      // Simulate regenerating outfits
+      // In a real app, this would call the AI/backend for new recommendations
+      const shuffled = [...mockRecommendations].sort(() => 0.5 - Math.random());
+      setItems(shuffled);
+      
+      // Assign new random outfit themes
+      const names: Record<number, string> = {};
+      shuffled.forEach(item => {
+        names[item.id] = outfitThemes[Math.floor(Math.random() * outfitThemes.length)];
+      });
+      setOutfitNames(names);
+      
+      setIsLoading(false);
+      
+      toast({
+        title: "Outfits regenerated",
+        description: "We've created new outfit suggestions for you.",
+      });
+    }, 1000);
   };
 
   if (isLoading) {
@@ -85,18 +139,43 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
     <div className="w-full max-w-6xl mx-auto">
       <div className="mb-10 text-center">
         <h2 className="text-3xl font-medium mb-3">Your Personalized Collection</h2>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
           Based on your preferences, we've curated a collection of pieces that will complement your style and body type.
         </p>
+        <Button 
+          onClick={regenerateOutfits}
+          variant="outline" 
+          className="rounded-full flex items-center gap-2 px-5 mb-8"
+        >
+          <RefreshCw size={16} />
+          Generate New Outfits
+        </Button>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {items.map((item, index) => (
           <FadeIn key={item.id} delay={index * 100} className="h-full">
-            <Card className="overflow-hidden border-0 shadow-lg h-full flex flex-col">
-              <div className="aspect-[3/4] bg-secondary/50 flex items-center justify-center group relative overflow-hidden">
-                <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center">
+            <Card className="overflow-hidden border-0 shadow-lg h-full flex flex-col hover:shadow-xl transition-all duration-300">
+              <div className="aspect-[3/4] bg-secondary/10 flex flex-col items-center justify-center group relative overflow-hidden">
+                <span className="absolute top-4 left-4 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                  {outfitNames[item.id] || "Stylish Outfit"}
+                </span>
+                <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mb-4">
                   {item.name.charAt(0)}
+                </div>
+                <div className="flex flex-col items-center gap-4">
+                  <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-md shadow-sm">
+                    <Shirt size={18} className="text-myntra-purple" />
+                    <span className="text-sm font-medium">{item.name.includes("Shirt") ? item.name : "Casual Shirt"}</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-md shadow-sm">
+                    <PantsIcon size={18} className="text-myntra-purple" />
+                    <span className="text-sm font-medium">Classic Fit Jeans</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-md shadow-sm">
+                    <Footprints size={18} className="text-myntra-purple" />
+                    <span className="text-sm font-medium">Casual Sneakers</span>
+                  </div>
                 </div>
                 <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <Button variant="secondary" size="sm" className="rounded-full">
@@ -109,25 +188,39 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
                   <h3 className="font-medium">{item.name}</h3>
                   <div className="text-sm font-semibold">${item.price}</div>
                 </div>
-                <div className="text-sm text-muted-foreground mb-3">{item.brand}</div>
-                <p className="text-sm">{item.description}</p>
+                <div className="text-sm text-myntra-purple font-medium mb-3">{item.brand}</div>
+                <p className="text-sm text-muted-foreground">{item.description}</p>
+                
+                <div className="mt-4 pt-4 border-t border-border/50">
+                  <h4 className="font-medium mb-2">Perfect For:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {['Casual', 'Everyday', 'Office'].map((tag) => (
+                      <span key={tag} className="bg-secondary/50 px-3 py-1 rounded-full text-xs">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </CardContent>
               <CardFooter className="px-6 pb-6 pt-0 flex flex-col space-y-2">
                 <Button 
                   variant={savedItems.includes(item.id) ? "default" : "outline"} 
-                  className="w-full rounded-full mb-2"
+                  className="w-full rounded-full mb-2 flex items-center justify-center gap-2"
                   onClick={() => toggleSaveItem(item.id)}
                 >
+                  <Heart size={16} className={savedItems.includes(item.id) ? "fill-white" : ""} />
                   {savedItems.includes(item.id) ? "Saved to Wardrobe" : "Add to Wardrobe"}
                 </Button>
                 <div className="grid grid-cols-2 gap-2">
-                  <a href={getPurchaseLink(item.id, "amazon")} target="_blank" rel="noopener noreferrer">
-                    <Button variant="secondary" size="sm" className="w-full">
+                  <a href={getPurchaseLink(item.id, "amazon")} target="_blank" rel="noopener noreferrer" className="w-full">
+                    <Button variant="secondary" size="sm" className="w-full rounded-full flex items-center gap-1">
+                      <ExternalLink size={14} />
                       Amazon
                     </Button>
                   </a>
-                  <a href={getPurchaseLink(item.id, "flipkart")} target="_blank" rel="noopener noreferrer">
-                    <Button variant="secondary" size="sm" className="w-full">
+                  <a href={getPurchaseLink(item.id, "flipkart")} target="_blank" rel="noopener noreferrer" className="w-full">
+                    <Button variant="secondary" size="sm" className="w-full rounded-full flex items-center gap-1">
+                      <ExternalLink size={14} />
                       Flipkart
                     </Button>
                   </a>
