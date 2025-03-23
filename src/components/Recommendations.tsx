@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { mockRecommendations } from "@/utils/styleData";
 import FadeIn from "./FadeIn";
-import { Heart, ExternalLink, RefreshCw, Shirt, Pants, Footprints } from "lucide-react";
+import { Heart, ExternalLink, RefreshCw, Shirt, Footprints } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
 interface RecommendationsProps {
@@ -12,7 +12,7 @@ interface RecommendationsProps {
 
 const outfitThemes = [
   "Casual Day Out",
-  "Office Ready",
+  "Office Ready", 
   "Weekend Vibes",
   "Evening Elegance",
   "Outdoor Adventure",
@@ -158,7 +158,7 @@ const Recommendations = ({ userAnswers }: RecommendationsProps) => {
                     <span className="text-sm font-medium">{item.name.includes("Shirt") ? item.name : "Casual Shirt"}</span>
                   </div>
                   <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-md shadow-sm">
-                    <Pants size={18} className="text-myntra-purple" />
+                    <Footprints size={18} className="text-myntra-purple" />
                     <span className="text-sm font-medium">Classic Fit Jeans</span>
                   </div>
                   <div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-md shadow-sm">

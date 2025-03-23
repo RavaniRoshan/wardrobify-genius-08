@@ -8,9 +8,21 @@ import MeasurementsStep from './quiz/MeasurementsStep';
 import QuestionStep from './quiz/QuestionStep';
 import { Button } from './ui/button';
 import FadeIn from './FadeIn';
-import { Question } from './quiz/QuestionStep';
 
 // Define proper types to match the props expected by imported components
+export interface Question {
+  title: string;
+  description: string;
+  question?: string;
+  options?: Array<{
+    id: string;
+    name: string;
+    description: string;
+    image?: string;
+  }>;
+  type?: string;
+}
+
 interface UserSelections {
   gender?: string;
   occasionPreferences?: string[];
@@ -60,13 +72,50 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
 
   const question1: Question = {
     title: "What is your favorite type of clothing?",
-    description: "This helps us understand your preferences better."
+    description: "This helps us understand your preferences better.",
+    question: "What is your favorite type of clothing?",
+    options: [
+      { id: "casual", name: "Casual", description: "Everyday comfortable wear" },
+      { id: "formal", name: "Formal", description: "Professional attire" },
+      { id: "athletic", name: "Athletic", description: "Sports and workout clothes" }
+    ],
+    type: "single"
   };
 
   const question2: Question = {
     title: "What is your preferred style aesthetic?",
-    description: "This helps us tailor our recommendations to your taste."
+    description: "This helps us tailor our recommendations to your taste.",
+    question: "What is your preferred style aesthetic?",
+    options: [
+      { id: "minimalist", name: "Minimalist", description: "Clean and simple designs" },
+      { id: "vintage", name: "Vintage", description: "Classic retro styles" },
+      { id: "trendy", name: "Trendy", description: "Latest fashion trends" }
+    ],
+    type: "single"
   };
+
+  // Mock data for the components
+  const genderOptions = [
+    { id: "male", name: "Male", description: "Men's fashion" },
+    { id: "female", name: "Female", description: "Women's fashion" },
+    { id: "other", name: "Non-binary", description: "Gender-neutral fashion" }
+  ];
+
+  const occasionOptions = [
+    { id: "casual", name: "Casual", description: "Everyday wear" },
+    { id: "work", name: "Work", description: "Professional attire" },
+    { id: "formal", name: "Formal Events", description: "Special occasions" },
+    { id: "athletic", name: "Athletic", description: "Workout and sports" },
+    { id: "nightOut", name: "Night Out", description: "Evening activities" }
+  ];
+
+  const colorOptions = [
+    { id: "black", name: "Black", description: "Versatile and slimming" },
+    { id: "blue", name: "Blue", description: "Calming and classic" },
+    { id: "white", name: "White", description: "Clean and fresh" },
+    { id: "red", name: "Red", description: "Bold and vibrant" },
+    { id: "green", name: "Green", description: "Natural and refreshing" }
+  ];
 
   return (
     <FadeIn>
@@ -75,47 +124,65 @@ const StyleQuiz: React.FC<StyleQuizProps> = ({ onComplete }) => {
 
         {step === 1 && (
           <GenderStep
-            selectedGender={userSelections.gender}
-            onChange={(value) => handleInputChange('gender', value)}
+            genderOptions={genderOptions}
+            selectedGender={userSelections.gender || ""}
+            onGenderSelect={(value) => handleInputChange('gender', value)}
           />
         )}
 
         {step === 2 && (
           <OccasionPreferencesStep
-            selected={userSelections.occasionPreferences}
-            onChange={(value) => handleInputChange('occasionPreferences', value)}
+            occasionOptions={occasionOptions}
+            selectedOccasions={userSelections.occasionPreferences || []}
+            onOccasionToggle={(value) => handleInputChange('occasionPreferences', 
+              userSelections.occasionPreferences?.includes(value) 
+                ? userSelections.occasionPreferences.filter(item => item !== value)
+                : [...(userSelections.occasionPreferences || []), value]
+            )}
           />
         )}
 
         {step === 3 && (
           <ColorPreferencesStep
-            selected={userSelections.colorPreferences}
-            onChange={(value) => handleInputChange('colorPreferences', value)}
+            colorOptions={colorOptions}
+            selectedColors={userSelections.colorPreferences || []}
+            onColorToggle={(value) => handleInputChange('colorPreferences', 
+              userSelections.colorPreferences?.includes(value) 
+                ? userSelections.colorPreferences.filter(item => item !== value)
+                : [...(userSelections.colorPreferences || []), value]
+            )}
           />
         )}
 
         {step === 4 && (
           <MeasurementsStep
-            measurements={userSelections.measurements}
-            onMeasurementChange={(value) => handleInputChange('measurements', value)}
+            measurements={userSelections.measurements || {}}
+            gender={userSelections.gender || ""}
+            onMeasurementChange={(field, value) => {
+              const updatedMeasurements = {
+                ...(userSelections.measurements || {}),
+                [field]: value
+              };
+              handleInputChange('measurements', updatedMeasurements);
+            }}
           />
         )}
 
         {step === 5 && (
           <QuestionStep
             question={question1}
-            field="question1"
-            answer={userSelections.question1}
-            onChange={(value) => handleInputChange('question1', value)}
+            selectedOptions={userSelections.question1 || ""}
+            onOptionSelect={(value) => handleInputChange('question1', value)}
+            isMultiSelect={false}
           />
         )}
 
         {step === 6 && (
           <QuestionStep
             question={question2}
-            field="question2"
-            answer={userSelections.question2}
-            onChange={(value) => handleInputChange('question2', value)}
+            selectedOptions={userSelections.question2 || ""}
+            onOptionSelect={(value) => handleInputChange('question2', value)}
+            isMultiSelect={false}
           />
         )}
 

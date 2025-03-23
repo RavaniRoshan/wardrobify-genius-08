@@ -9,11 +9,12 @@ interface QuestionOption {
   image?: string;
 }
 
-interface Question {
-  id: string;
-  question: string;
-  options: QuestionOption[];
-  type: string;
+export interface Question {
+  title: string;
+  description: string;
+  question?: string;
+  options?: QuestionOption[];
+  type?: string;
 }
 
 interface QuestionStepProps {
@@ -23,18 +24,25 @@ interface QuestionStepProps {
   isMultiSelect: boolean;
 }
 
-const QuestionStep = ({ 
+const QuestionStep: React.FC<QuestionStepProps> = ({ 
   question, 
   selectedOptions, 
   onOptionSelect,
   isMultiSelect
 }: QuestionStepProps) => {
+  const options = question.options || [
+    { id: "option1", name: "Option 1", description: "Description for option 1" },
+    { id: "option2", name: "Option 2", description: "Description for option 2" },
+    { id: "option3", name: "Option 3", description: "Description for option 3" }
+  ];
+
   return (
     <>
-      <h3 className="text-xl font-medium mb-6">{question.question}</h3>
+      <h3 className="text-xl font-medium mb-6">{question.question || question.title}</h3>
+      <p className="text-muted-foreground mb-6">{question.description}</p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {question.options.map((option) => {
+        {options.map((option) => {
           const isSelected = isMultiSelect
             ? Array.isArray(selectedOptions) && selectedOptions.includes(option.id)
             : selectedOptions === option.id;
