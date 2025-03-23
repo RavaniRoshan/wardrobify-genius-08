@@ -14,13 +14,13 @@ const About = () => {
     },
     {
       name: "Shivani Shukla",
-      role: "Chief AI Officer",
+      role: "Team Member",
       bio: "co-developer and adviser",
     },
     {
       name: "Kashvi",
       role: "The Honest Leader 😜",
-      bio: "Professional stylist who has worked with major brands and celebrities.",
+      bio: "Team head and quality control head",
     },
   ];
 
