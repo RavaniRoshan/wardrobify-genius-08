@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import FadeIn from "@/components/FadeIn";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import Logo from "@/components/Logo";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -14,23 +16,46 @@ const SignUp = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleSignUp = (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate account creation
-    setTimeout(() => {
-      localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("user", JSON.stringify({ name, email }));
-      
-      setIsLoading(false);
-      toast({
-        title: "Account created",
-        description: "Welcome to StyleCurator!",
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name,
+          },
+        },
       });
       
-      navigate("/");
-    }, 1500);
+      if (error) {
+        throw error;
+      }
+      
+      if (data.user) {
+        toast({
+          title: "Account created",
+          description: "Please check your email to confirm your account",
+        });
+        
+        // For development without email confirmation
+        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("user", JSON.stringify({ name, email }));
+        navigate("/");
+      }
+    } catch (error: any) {
+      toast({
+        title: "Sign up failed",
+        description: error.message || "Failed to create account",
+        variant: "destructive",
+      });
+      console.error("Sign up error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -38,14 +63,9 @@ const SignUp = () => {
       <div className="w-full max-w-md p-8">
         <FadeIn>
           <div className="text-center mb-8">
-            <Link to="/" className="inline-flex items-center justify-center mb-8">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
-                <span className="text-primary font-semibold text-sm">SC</span>
-              </div>
-              <h1 className="text-xl font-medium">
-                Style<span className="text-primary font-semibold">Curator</span>
-              </h1>
-            </Link>
+            <div className="flex justify-center mb-8">
+              <Logo size="md" showText={true} />
+            </div>
             <h1 className="text-2xl font-semibold mb-2">Create an account</h1>
             <p className="text-muted-foreground">Sign up to get started</p>
           </div>

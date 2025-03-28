@@ -12,7 +12,10 @@ import HowItWorks from "./pages/HowItWorks";
 import About from "./pages/About";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import Collections from "./pages/Collections";
+import { supabase } from "./integrations/supabase/client";
 
 // Create auth context
 export type AuthContextType = {
@@ -31,16 +34,49 @@ const App = () => {
 
   useEffect(() => {
     // Check if user is authenticated on mount
-    const authStatus = localStorage.getItem("isAuthenticated") === "true";
-    const userData = localStorage.getItem("user");
+    const checkAuth = async () => {
+      const { data } = await supabase.auth.getSession();
+      const authStatus = !!data.session;
+      const userData = data.session?.user || null;
+      
+      setIsAuthenticated(authStatus);
+      setUser(userData);
+      
+      if (authStatus) {
+        localStorage.setItem("isAuthenticated", "true");
+        if (userData) {
+          localStorage.setItem("user", JSON.stringify({ email: userData.email }));
+        }
+      }
+    };
     
-    setIsAuthenticated(authStatus);
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
+    checkAuth();
+    
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setIsAuthenticated(!!session);
+        setUser(session?.user || null);
+        
+        if (session) {
+          localStorage.setItem("isAuthenticated", "true");
+          if (session.user) {
+            localStorage.setItem("user", JSON.stringify({ email: session.user.email }));
+          }
+        } else {
+          localStorage.removeItem("isAuthenticated");
+          localStorage.removeItem("user");
+        }
+      }
+    );
+    
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
-  const logout = () => {
+  const logout = async () => {
+    await supabase.auth.signOut();
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("user");
     setIsAuthenticated(false);
@@ -67,6 +103,8 @@ const App = () => {
               <Route path="/about" element={<About />} />
               <Route path="/sign-in" element={<SignIn />} />
               <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/collections" element={<Collections />} />
               <Route path="/collections/:id" element={<Collections />} />
               <Route path="/quiz-section" element={<Index />} />
