@@ -23,6 +23,7 @@ export type AuthContextType = {
   isAuthenticated: boolean;
   user: any;
   logout: () => void;
+  refreshUser: () => Promise<void>;
 };
 
 export const AuthContext = React.createContext<AuthContextType | null>(null);
@@ -32,6 +33,13 @@ const queryClient = new QueryClient();
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<any>(null);
+
+  const refreshUser = async () => {
+    const { data } = await supabase.auth.getUser();
+    if (data.user) {
+      setUser(data.user);
+    }
+  };
 
   useEffect(() => {
     // Check if user is authenticated on mount
@@ -87,7 +95,8 @@ const App = () => {
   const authContextValue = {
     isAuthenticated,
     user,
-    logout
+    logout,
+    refreshUser
   };
 
   return (

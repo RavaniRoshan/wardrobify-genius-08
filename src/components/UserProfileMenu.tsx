@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
 import { AuthContext } from "@/App";
 import { useContext } from "react";
-import { Moon, Sun, User, LogOut } from "lucide-react";
+import { Moon, Sun, User, LogOut, Settings } from "lucide-react";
+import ProfileSettingsDialog from "./ProfileSettingsDialog";
 
 const UserProfileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isProfileDialogOpen, setIsProfileDialogOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -19,6 +21,15 @@ const UserProfileMenu = () => {
       auth.logout();
       navigate("/");
       setIsOpen(false);
+    }
+  };
+
+  const handleProfileUpdate = () => {
+    // Refresh auth state after profile update
+    if (auth) {
+      // Force a refresh of the user data in the parent component
+      const currentUser = { ...auth.user };
+      auth.refreshUser();
     }
   };
 
@@ -54,13 +65,24 @@ const UserProfileMenu = () => {
                 <User size={20} />
               </div>
               <div className="ml-3">
-                <p className="font-medium">{auth.user?.name || "User"}</p>
+                <p className="font-medium">{auth.user?.user_metadata?.name || "User"}</p>
                 <p className="text-sm text-muted-foreground">{auth.user?.email}</p>
               </div>
             </div>
           </div>
           
           <div className="p-2">
+            <button
+              onClick={() => {
+                setIsProfileDialogOpen(true);
+                setIsOpen(false);
+              }}
+              className="flex items-center w-full px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              <Settings size={16} className="mr-2" />
+              Edit Profile
+            </button>
+            
             <div className="p-2 flex items-center justify-between">
               <span className="text-sm">Theme</span>
               <Button
@@ -83,6 +105,13 @@ const UserProfileMenu = () => {
           </div>
         </div>
       )}
+      
+      <ProfileSettingsDialog
+        open={isProfileDialogOpen}
+        onOpenChange={setIsProfileDialogOpen}
+        currentUser={auth.user}
+        onProfileUpdate={handleProfileUpdate}
+      />
     </div>
   );
 };
