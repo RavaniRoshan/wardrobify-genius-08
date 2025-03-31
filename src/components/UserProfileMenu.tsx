@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -48,13 +47,16 @@ const UserProfileMenu = () => {
 
   if (!auth?.isAuthenticated) return null;
 
+  // Get the display name from user metadata or fall back to email
+  const displayName = auth.user?.user_metadata?.name || auth.user?.email || "User";
+
   return (
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center text-sm font-medium bg-primary/10 py-1 px-4 rounded-full text-primary hover:bg-primary/20 transition-colors"
       >
-        {auth.user?.email}
+        {displayName}
       </button>
       
       {isOpen && (
