@@ -1,9 +1,11 @@
+
 import { Button } from "@/components/ui/button";
 import FadeIn from "./FadeIn";
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
 import Logo from "./Logo";
+import UserProfileMenu from "./UserProfileMenu";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -71,19 +73,7 @@ const Header = () => {
             </nav>
             
             {auth?.isAuthenticated ? (
-              <div className="flex items-center space-x-4">
-                <span className="text-sm font-medium bg-primary/10 py-1 px-4 rounded-full text-primary">
-                  {auth.user?.name || auth.user?.email}
-                </span>
-                <Button
-                  size="sm"
-                  variant="nike"
-                  className="px-6"
-                  onClick={handleSignOut}
-                >
-                  Sign Out
-                </Button>
-              </div>
+              <UserProfileMenu />
             ) : (
               <>
                 <Link to="/sign-in">
