@@ -1,3 +1,4 @@
+
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -7,7 +8,7 @@ import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
 import { AuthContext } from "../App";
 import Logo from "@/components/Logo";
-import { Gallery, Image } from "lucide-react";
+import { ImageIcon, LayoutGrid, Palette } from "lucide-react";
 
 const Index = () => {
   const [showQuiz, setShowQuiz] = useState(false);
@@ -138,7 +139,7 @@ const Index = () => {
             <FadeIn delay={150}>
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Gallery className="w-8 h-8 text-primary" />
+                  <Palette className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-medium mb-3">Take the Style Quiz</h3>
                 <p className="text-muted-foreground">
@@ -150,7 +151,7 @@ const Index = () => {
             <FadeIn delay={300}>
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Image className="w-8 h-8 text-primary" />
+                  <ImageIcon className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-medium mb-3">AI Analysis</h3>
                 <p className="text-muted-foreground">
@@ -162,7 +163,7 @@ const Index = () => {
             <FadeIn delay={450}>
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Gallery className="w-8 h-8 text-primary rotate-180" />
+                  <LayoutGrid className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-medium mb-3">Curated Collection</h3>
                 <p className="text-muted-foreground">
