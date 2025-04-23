@@ -1,4 +1,3 @@
-
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -103,8 +102,8 @@ const Index = () => {
           <FadeIn delay={600} className="mt-16 w-full max-w-5xl">
             <div className="relative aspect-[16/9] rounded-xl overflow-hidden shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80"
-                alt="Fashion Showcase"
+                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80"
+                alt="Fashion Collection Showcase"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />

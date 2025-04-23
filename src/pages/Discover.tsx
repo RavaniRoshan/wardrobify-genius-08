@@ -25,10 +25,12 @@ const Discover = () => {
             {styleCategories.map((category, index) => (
               <FadeIn key={category.id} delay={index * 100}>
                 <div className="bg-card rounded-xl overflow-hidden shadow-md border border-border/50 h-full flex flex-col">
-                  <div className="aspect-video bg-secondary flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                      <span className="text-primary font-semibold text-xl">{category.name.charAt(0)}</span>
-                    </div>
+                  <div className="aspect-video relative overflow-hidden">
+                    <img 
+                      src={category.image} 
+                      alt={category.name}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
                   <div className="p-6 flex-grow">
                     <h3 className="text-xl font-medium mb-2">{category.name}</h3>
