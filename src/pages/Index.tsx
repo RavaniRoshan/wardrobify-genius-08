@@ -7,6 +7,7 @@ import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
 import { AuthContext } from "../App";
 import Logo from "@/components/Logo";
+import { Gallery, Image } from "lucide-react";
 
 const Index = () => {
   const [showQuiz, setShowQuiz] = useState(false);
@@ -99,11 +100,16 @@ const Index = () => {
           </FadeIn>
           
           <FadeIn delay={600} className="mt-16 w-full max-w-5xl">
-            <div className="relative aspect-[16/9] bg-secondary/30 rounded-xl overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-lg font-medium text-muted-foreground">
-                  Style showcase visual
-                </div>
+            <div className="relative aspect-[16/9] rounded-xl overflow-hidden shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80"
+                alt="Fashion Showcase"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <h3 className="text-xl md:text-2xl font-medium mb-2">Discover Your Perfect Style</h3>
+                <p className="text-white/80">Personalized recommendations tailored just for you</p>
               </div>
             </div>
           </FadeIn>
@@ -132,7 +138,7 @@ const Index = () => {
             <FadeIn delay={150}>
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-primary font-semibold text-xl">1</span>
+                  <Gallery className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-medium mb-3">Take the Style Quiz</h3>
                 <p className="text-muted-foreground">
@@ -144,7 +150,7 @@ const Index = () => {
             <FadeIn delay={300}>
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-primary font-semibold text-xl">2</span>
+                  <Image className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-medium mb-3">AI Analysis</h3>
                 <p className="text-muted-foreground">
@@ -156,7 +162,7 @@ const Index = () => {
             <FadeIn delay={450}>
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-primary font-semibold text-xl">3</span>
+                  <Gallery className="w-8 h-8 text-primary rotate-180" />
                 </div>
                 <h3 className="text-xl font-medium mb-3">Curated Collection</h3>
                 <p className="text-muted-foreground">
@@ -224,21 +230,45 @@ const Index = () => {
           </FadeIn>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <FadeIn key={i} delay={i * 150}>
+            {[
+              {
+                id: 1,
+                image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=300&h=300&q=80",
+                name: "Sarah Johnson",
+                role: "Fashion Enthusiast",
+                quote: "StyleCurator has completely changed how I shop for clothes. The recommendations are spot-on!"
+              },
+              {
+                id: 2,
+                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=300&h=300&q=80",
+                name: "Michael Chen",
+                role: "Style Seeker",
+                quote: "I finally feel confident in my personal style thanks to the personalized recommendations."
+              },
+              {
+                id: 3,
+                image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=300&h=300&q=80",
+                name: "Emily Wright",
+                role: "Fashion Blogger",
+                quote: "The AI-powered style quiz is incredibly accurate. It's like having a personal stylist!"
+              }
+            ].map((testimonial) => (
+              <FadeIn key={testimonial.id} delay={testimonial.id * 150}>
                 <div className="bg-background rounded-xl p-8 shadow-lg">
                   <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                      <span className="text-primary font-semibold">U{i}</span>
+                    <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+                      <img 
+                        src={testimonial.image} 
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div>
-                      <h4 className="font-medium">User {i}</h4>
-                      <p className="text-sm text-muted-foreground">Fashion Enthusiast</p>
+                      <h4 className="font-medium">{testimonial.name}</h4>
+                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                     </div>
                   </div>
-                  <p className="italic text-muted-foreground">
-                    "StyleCurator has completely changed how I shop for clothes. The recommendations are spot-on and I finally feel confident in my personal style."
-                  </p>
+                  <p className="italic text-muted-foreground">"{testimonial.quote}"</p>
                 </div>
               </FadeIn>
             ))}
