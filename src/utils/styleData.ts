@@ -4,7 +4,7 @@ export const styleCategories = [
     id: "minimalist",
     name: "Minimalist",
     description: "Clean lines, neutral colors, and simple silhouettes.",
-    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
+    image: "/lovable-uploads/732b5b2d-90da-4f76-9f17-1e55dbf963fd.png",
   },
   {
     id: "classic",
@@ -22,7 +22,7 @@ export const styleCategories = [
     id: "streetwear",
     name: "Streetwear",
     description: "Urban-inspired casual wear with bold graphics and oversized fits.",
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80",
+    image: "/lovable-uploads/a1330e69-08b5-40d2-951e-17898468bbb8.png",
   },
   {
     id: "preppy",
