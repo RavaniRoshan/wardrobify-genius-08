@@ -1,41 +1,40 @@
-
 // Style categories
 export const styleCategories = [
   {
     id: "minimalist",
     name: "Minimalist",
     description: "Clean lines, neutral colors, and simple silhouettes.",
-    image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625",
+    image: "/lovable-uploads/732b5b2d-90da-4f76-9f17-1e55dbf963fd.png",
   },
   {
     id: "classic",
     name: "Classic",
     description: "Timeless pieces with structured shapes and refined details.",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+    image: "/lovable-uploads/15dc960f-b0fd-4d1d-83b3-7e2c02fd537b.png",
   },
   {
     id: "bohemian",
     name: "Bohemian",
     description: "Free-spirited looks with flowing fabrics and artisanal details.",
-    image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07",
+    image: "/lovable-uploads/54da5cbb-9008-4253-bafb-319eda9120c9.png",
   },
   {
     id: "streetwear",
     name: "Streetwear",
     description: "Urban-inspired casual wear with bold graphics and oversized fits.",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+    image: "/lovable-uploads/a1330e69-08b5-40d2-951e-17898468bbb8.png",
   },
   {
     id: "preppy",
     name: "Preppy",
     description: "Polished, collegiate-inspired pieces with crisp details.",
-    image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+    image: "/lovable-uploads/a9a1d126-6857-4e4a-9c44-d4a58416d095.png",
   },
   {
     id: "avant-garde",
     name: "Avant-Garde",
     description: "Experimental silhouettes and unconventional combinations.",
-    image: "https://images.unsplash.com/photo-1458668383970-8ddd3927deed",
+    image: "/lovable-uploads/3b910393-d7ff-4406-8c6b-c3aac5be01df.png",
   },
 ];
 

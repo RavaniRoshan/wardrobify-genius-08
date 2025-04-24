@@ -1,69 +1,113 @@
-# Welcome to your my project
+# 🚀 Modern React Application
 
-## Project info
+<div align="center">
 
-**URL**: https://lovable.dev/projects/99e69e80-9c6f-4d92-b1ec-8425875c905d
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## How can I edit this code?
+</div>
 
-There are several ways of editing your application.
+## 🌟 About
 
-**Use Lovable**
+A modern web application built with cutting-edge technologies, featuring a beautiful UI powered by shadcn-ui components and seamless backend integration with Supabase.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/99e69e80-9c6f-4d92-b1ec-8425875c905d) and start prompting.
+## 🛠️ Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend Framework:** React with TypeScript
+- **Build Tool:** Vite
+- **UI Components:** shadcn-ui
+- **Styling:** Tailwind CSS
+- **Backend:** Supabase
+- **State Management:** React Query
+- **Form Handling:** React Hook Form
+- **Routing:** React Router DOM
 
-**Use your preferred IDE**
+## 🚀 Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js (LTS version recommended)
+- npm or yarn or bun
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. **Clone the repository**
+   ```bash
+   git clone <YOUR_GIT_URL>
+   cd <YOUR_PROJECT_NAME>
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   bun install
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. **Start the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   bun dev
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+4. **Open your browser**
+   Navigate to `http://localhost:5173`
+
+## 🔧 Development Options
+
+### 1. Using Lovable
+- Visit [Lovable Project](https://lovable.dev/projects/99e69e80-9c6f-4d92-b1ec-8425875c905d)
+- Start prompting and making changes
+- Changes are automatically committed
+
+### 2. Using GitHub Codespaces
+1. Click the "Code" button on the repository
+2. Select "Codespaces"
+3. Click "New codespace"
+4. Start coding in the cloud!
+
+### 3. Local Development
+Use your preferred IDE and follow the installation steps above.
+
+## 📦 Project Structure
+
+```
+src/
+├── components/     # Reusable UI components
+├── pages/         # Application pages/routes
+├── lib/           # Utility functions and hooks
+├── styles/        # Global styles and Tailwind config
+└── types/         # TypeScript type definitions
 ```
 
-**Edit a file directly in GitHub**
+## 🚀 Deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Quick Deploy
+1. Open [Lovable](https://lovable.dev/projects/99e69e80-9c6f-4d92-b1ec-8425875c905d)
+2. Navigate to Share -> Publish
 
-**Use GitHub Codespaces**
+### Custom Domain
+While custom domains aren't directly supported through Lovable, you can deploy to Netlify:
+1. Connect your repository to Netlify
+2. Configure your build settings
+3. Set up your custom domain
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🤝 Contributing
 
-## What technologies are used for this project?
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-This project is built with .
+## 📝 License
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/99e69e80-9c6f-4d92-b1ec-8425875c905d) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+This project is licensed under the MIT License.
