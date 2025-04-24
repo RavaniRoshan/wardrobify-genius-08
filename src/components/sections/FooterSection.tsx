@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
@@ -19,15 +18,15 @@ const FooterSection = () => {
             <Link to="/how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
               How It Works
             </Link>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
               Privacy
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            </Link>
+            <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
               Terms
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            </Link>
+            <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
               Contact
-            </a>
+            </Link>
           </div>
           
           <div className="flex gap-4">

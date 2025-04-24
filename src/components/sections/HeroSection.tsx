@@ -2,10 +2,20 @@
 import { useNavigate } from "react-router-dom";
 import FadeIn from "@/components/FadeIn";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 const HeroSection = ({ onStartQuiz }: { onStartQuiz: () => void }) => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/collections?search=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   return (
     <div className="container">
@@ -19,6 +29,18 @@ const HeroSection = ({ onStartQuiz }: { onStartQuiz: () => void }) => {
           <p className="text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
             Discover your perfect style with AI-powered recommendations tailored just for you.
           </p>
+          <form onSubmit={handleSearch} className="mb-8">
+            <div className="relative max-w-md">
+              <Input
+                type="search"
+                placeholder="Search collections..."
+                className="pr-10 h-12"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                icon={<Search className="h-5 w-5" />}
+              />
+            </div>
+          </form>
           <div className="flex flex-col sm:flex-row gap-6">
             <Button
               size="lg"
@@ -32,9 +54,9 @@ const HeroSection = ({ onStartQuiz }: { onStartQuiz: () => void }) => {
               size="lg"
               variant="outline"
               className="text-lg h-16 px-8 rounded-full hover:bg-secondary/20 transition-all"
-              onClick={() => navigate('/collections')}
+              onClick={() => navigate('/sign-up')}
             >
-              Browse Collections
+              Join Us
             </Button>
           </div>
         </FadeIn>
@@ -42,7 +64,7 @@ const HeroSection = ({ onStartQuiz }: { onStartQuiz: () => void }) => {
         <FadeIn delay={200} className="order-1 lg:order-2">
           <div className="relative aspect-square rounded-[2rem] overflow-hidden bg-gradient-to-br from-secondary/20 to-accent/10 p-8">
             <img
-              src="/lovable-uploads/f594b9d0-9162-495b-a57f-954de8074097.png"
+              src="/lovable-uploads/732b5b2d-90da-4f76-9f17-1e55dbf963fd.png"
               alt="Featured Collection"
               className="w-full h-full object-cover rounded-2xl shadow-2xl transition-transform hover:scale-105 duration-700"
             />

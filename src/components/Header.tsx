@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import FadeIn from "./FadeIn";
 import { useState, useEffect, useContext } from "react";
@@ -37,6 +36,8 @@ const Header = () => {
     }
   };
 
+  const cartItemCount = 0;
+
   return (
     <>
       <div className="bg-secondary/10 py-2 text-center text-sm">
@@ -44,13 +45,9 @@ const Header = () => {
         <Link to="/app" className="ml-2 text-primary font-medium hover:underline">Get Started</Link>
       </div>
       
-      <header
-        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border/50"
-            : "bg-background"
-        }`}
-      >
+      <header className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border/50" : "bg-background"
+      }`}>
         <div className="container flex items-center justify-between h-16">
           <FadeIn direction="left">
             <div className="flex items-center space-x-8">
@@ -77,9 +74,14 @@ const Header = () => {
                 </Button>
               </Link>
               
-              <Link to="/cart">
+              <Link to="/cart" className="relative">
                 <Button variant="ghost" size="icon">
                   <ShoppingCart className="h-5 w-5" />
+                  {cartItemCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-accent text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">
+                      {cartItemCount}
+                    </span>
+                  )}
                 </Button>
               </Link>
 
@@ -122,7 +124,6 @@ const Header = () => {
           </FadeIn>
         </div>
         
-        {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden bg-background border-t border-border/50">
             <nav className="container py-4 space-y-2">

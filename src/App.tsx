@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -118,16 +117,10 @@ const App = () => {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/collections" element={<Collections />} />
                 <Route path="/collections/:id" element={<Collections />} />
-                {/* New e-commerce routes */}
-                <Route path="/wishlist" element={<Index />} />
-                <Route path="/cart" element={<Index />} />
-                <Route path="/orders" element={<Index />} />
-                <Route path="/notifications" element={<Index />} />
-                <Route path="/coupons" element={<Index />} />
-                <Route path="/issues" element={<Index />} />
-                <Route path="/profile" element={<Index />} />
-                <Route path="/quiz-section" element={<Index />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="/app" element={<AppDownload />} />
+                <Route path="/privacy" element={<Index />} />
+                <Route path="/terms" element={<Index />} />
+                <Route path="/contact" element={<Index />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
