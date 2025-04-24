@@ -14,6 +14,7 @@ import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Collections from "./pages/Collections";
+import AppDownload from "./pages/AppDownload";
 import { supabase } from "./integrations/supabase/client";
 import { ThemeProvider } from "./context/ThemeContext";
 
