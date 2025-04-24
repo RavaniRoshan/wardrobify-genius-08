@@ -118,6 +118,14 @@ const App = () => {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/collections" element={<Collections />} />
                 <Route path="/collections/:id" element={<Collections />} />
+                {/* New e-commerce routes */}
+                <Route path="/wishlist" element={<Index />} />
+                <Route path="/cart" element={<Index />} />
+                <Route path="/orders" element={<Index />} />
+                <Route path="/notifications" element={<Index />} />
+                <Route path="/coupons" element={<Index />} />
+                <Route path="/issues" element={<Index />} />
+                <Route path="/profile" element={<Index />} />
                 <Route path="/quiz-section" element={<Index />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
