@@ -1,26 +1,11 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
 import { AuthContext } from "@/App";
 import { useContext } from "react";
-import { 
-  Moon, 
-  Sun, 
-  User, 
-  LogOut, 
-  Settings, 
-  Heart, 
-  ShoppingCart, 
-  Package, 
-  Bell, 
-  Tag, 
-  Monitor 
-} from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { Moon, Sun, User, LogOut, Settings } from "lucide-react";
 import ProfileSettingsDialog from "./ProfileSettingsDialog";
-import { Switch } from "@/components/ui/switch";
 
 const UserProfileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +13,7 @@ const UserProfileMenu = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   
   const handleSignOut = () => {
     if (auth) {
@@ -60,11 +45,6 @@ const UserProfileMenu = () => {
     };
   }, []);
 
-  const navigateTo = (path: string) => {
-    navigate(path);
-    setIsOpen(false);
-  };
-
   if (!auth?.isAuthenticated) return null;
 
   // Get the display name from user metadata or fall back to email
@@ -94,112 +74,27 @@ const UserProfileMenu = () => {
           </div>
           
           <div className="p-2">
-            <div className="border-b border-border pb-2 mb-2">
-              <button
-                onClick={() => navigateTo("/profile")}
-                className="flex items-center w-full px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+            <button
+              onClick={() => {
+                setIsProfileDialogOpen(true);
+                setIsOpen(false);
+              }}
+              className="flex items-center w-full px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              <Settings size={16} className="mr-2" />
+              Edit Profile
+            </button>
+            
+            <div className="p-2 flex items-center justify-between">
+              <span className="text-sm">Theme</span>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleTheme}
+                className="h-8 w-8"
               >
-                <User size={16} className="mr-2" />
-                My Profile
-              </button>
-
-              <button
-                onClick={() => navigateTo("/wishlist")}
-                className="flex items-center w-full px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-              >
-                <Heart size={16} className="mr-2" />
-                Wishlist
-              </button>
-
-              <button
-                onClick={() => navigateTo("/cart")}
-                className="flex items-center w-full px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-              >
-                <ShoppingCart size={16} className="mr-2" />
-                Cart
-              </button>
-
-              <button
-                onClick={() => navigateTo("/orders")}
-                className="flex items-center w-full px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-              >
-                <Package size={16} className="mr-2" />
-                Orders
-              </button>
-
-              <button
-                onClick={() => navigateTo("/notifications")}
-                className="flex items-center w-full px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-              >
-                <Bell size={16} className="mr-2" />
-                Notifications
-              </button>
-
-              <button
-                onClick={() => navigateTo("/coupons")}
-                className="flex items-center w-full px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-              >
-                <Tag size={16} className="mr-2" />
-                Coupons
-              </button>
-
-              <button
-                onClick={() => navigateTo("/issues")}
-                className="flex items-center w-full px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-              >
-                <Package size={16} className="mr-2" />
-                Issues
-              </button>
-            </div>
-
-            {/* Settings section */}
-            <div className="border-b border-border pb-2 mb-2">
-              <button
-                onClick={() => {
-                  setIsProfileDialogOpen(true);
-                  setIsOpen(false);
-                }}
-                className="flex items-center w-full px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-              >
-                <Settings size={16} className="mr-2" />
-                Edit Profile
-              </button>
-              
-              <div className="px-3 py-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">Theme</span>
-                  <div className="flex items-center space-x-2">
-                    <Sun size={16} className={theme === "light" || (theme === "system" && resolvedTheme === "light") ? "text-accent" : "text-muted-foreground"} />
-                    <div className="flex gap-1">
-                      <Button
-                        variant={theme === "light" ? "default" : "outline"}
-                        size="sm"
-                        className="h-7 px-2 text-xs"
-                        onClick={() => setTheme("light")}
-                      >
-                        Light
-                      </Button>
-                      <Button
-                        variant={theme === "system" ? "default" : "outline"}
-                        size="sm"
-                        className="h-7 px-2 text-xs"
-                        onClick={() => setTheme("system")}
-                      >
-                        System
-                      </Button>
-                      <Button
-                        variant={theme === "dark" ? "default" : "outline"}
-                        size="sm"
-                        className="h-7 px-2 text-xs"
-                        onClick={() => setTheme("dark")}
-                      >
-                        Dark
-                      </Button>
-                    </div>
-                    <Moon size={16} className={theme === "dark" || (theme === "system" && resolvedTheme === "dark") ? "text-accent" : "text-muted-foreground"} />
-                  </div>
-                </div>
-              </div>
+                {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+              </Button>
             </div>
             
             <button

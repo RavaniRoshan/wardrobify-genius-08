@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -14,7 +15,6 @@ import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Collections from "./pages/Collections";
-import AppDownload from "./pages/AppDownload";
 import { supabase } from "./integrations/supabase/client";
 import { ThemeProvider } from "./context/ThemeContext";
 
@@ -118,10 +118,8 @@ const App = () => {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/collections" element={<Collections />} />
                 <Route path="/collections/:id" element={<Collections />} />
-                <Route path="/app" element={<AppDownload />} />
-                <Route path="/privacy" element={<Index />} />
-                <Route path="/terms" element={<Index />} />
-                <Route path="/contact" element={<Index />} />
+                <Route path="/quiz-section" element={<Index />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
