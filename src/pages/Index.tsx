@@ -39,8 +39,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <HeaderSection />
       
-      <main>
-        <section className="py-12 md:py-20 relative overflow-hidden">
+      <main className="overflow-hidden">
+        <section className="pt-12 md:pt-20 pb-20 md:pb-32 relative">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-secondary/20 via-background to-background" />
           <HeroSection onStartQuiz={handleStartQuiz} />
         </section>

@@ -11,27 +11,27 @@ const HeroSection = ({ onStartQuiz }: { onStartQuiz: () => void }) => {
     <div className="container">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <FadeIn className="order-2 lg:order-1">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-[1.1] tracking-tight">
             Your Style.
             <br />
-            Your Way.
+            <span className="text-accent">Your Way.</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-lg">
+          <p className="text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
             Discover your perfect style with AI-powered recommendations tailored just for you.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-6">
             <Button
               size="lg"
-              className="text-base gap-2 h-14"
+              className="text-lg gap-3 h-16 px-8 rounded-full hover:scale-105 transition-all"
               onClick={onStartQuiz}
             >
               Take Style Quiz
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight className="h-6 w-6" />
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="text-base h-14"
+              className="text-lg h-16 px-8 rounded-full hover:bg-secondary/20 transition-all"
               onClick={() => navigate('/collections')}
             >
               Browse Collections
@@ -40,11 +40,11 @@ const HeroSection = ({ onStartQuiz }: { onStartQuiz: () => void }) => {
         </FadeIn>
 
         <FadeIn delay={200} className="order-1 lg:order-2">
-          <div className="relative aspect-square rounded-3xl overflow-hidden bg-secondary/10 p-8">
+          <div className="relative aspect-square rounded-[2rem] overflow-hidden bg-gradient-to-br from-secondary/20 to-accent/10 p-8">
             <img
               src="/lovable-uploads/f594b9d0-9162-495b-a57f-954de8074097.png"
               alt="Featured Collection"
-              className="w-full h-full object-cover rounded-2xl"
+              className="w-full h-full object-cover rounded-2xl shadow-2xl transition-transform hover:scale-105 duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
           </div>
