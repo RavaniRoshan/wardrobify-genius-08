@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
 import Logo from "./Logo";
 import UserProfileMenu from "./UserProfileMenu";
+import { Search, ShoppingCart, Heart } from "lucide-react";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -37,162 +38,114 @@ const Header = () => {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/80 backdrop-blur-md shadow-sm"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="container flex items-center justify-between">
-        <FadeIn direction="left" delay={100}>
-          <Logo size="md" />
-        </FadeIn>
-
-        <FadeIn direction="right" delay={200}>
-          <div className="hidden md:flex items-center space-x-8">
-            <nav className="flex items-center space-x-6">
-              <Link
-                to="/discover"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Discover
-              </Link>
-              <Link
-                to="/how-it-works"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                How It Works
-              </Link>
-              <Link
-                to="/about"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                About
-              </Link>
-            </nav>
-            
-            {auth?.isAuthenticated ? (
-              <UserProfileMenu />
-            ) : (
-              <>
-                <Link to="/sign-in">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="rounded-full px-6 border-primary/20 hover:border-primary/50 transition-all"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-                <Link to="/sign-up">
-                  <Button
-                    size="sm"
-                    variant="nike"
-                    className="px-6"
-                  >
-                    Get Started
-                  </Button>
-                </Link>
-              </>
-            )}
-          </div>
-
-          <Button
-            size="icon"
-            variant="ghost"
-            className="md:hidden"
-            aria-label="Menu"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-menu"
-            >
-              <line x1="4" x2="20" y1="12" y2="12" />
-              <line x1="4" x2="20" y1="6" y2="6" />
-              <line x1="4" x2="20" y1="18" y2="18" />
-            </svg>
-          </Button>
-        </FadeIn>
+    <>
+      <div className="bg-secondary/10 py-2 text-center text-sm">
+        <span className="text-primary/80">Download the app to access everything here.</span>
+        <Link to="/app" className="ml-2 text-primary font-medium hover:underline">Get Started</Link>
       </div>
       
-      {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md shadow-md">
-          <div className="container py-4 space-y-4">
-            <nav className="flex flex-col space-y-4">
-              <Link
-                to="/discover"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Discover
-              </Link>
-              <Link
-                to="/how-it-works"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                How It Works
-              </Link>
-              <Link
-                to="/about"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                About
-              </Link>
-            </nav>
-            
-            <div className="pt-2 border-t border-border/30 flex flex-col space-y-3">
-              {auth?.isAuthenticated ? (
-                <>
-                  <div className="text-sm font-medium px-4 py-2 bg-primary/10 rounded-full text-primary text-center">
-                    {auth.user?.name || auth.user?.email}
-                  </div>
-                  <Button
-                    variant="nike"
-                    onClick={() => {
-                      handleSignOut();
-                      setMobileMenuOpen(false);
-                    }}
-                  >
-                    Sign Out
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Link to="/sign-in" onClick={() => setMobileMenuOpen(false)}>
-                    <Button
-                      variant="outline"
-                      className="w-full rounded-full border-primary/20 hover:border-primary/50 transition-all"
-                    >
-                      Sign In
-                    </Button>
-                  </Link>
-                  <Link to="/sign-up" onClick={() => setMobileMenuOpen(false)}>
-                    <Button
-                      className="w-full"
-                      variant="nike"
-                    >
-                      Get Started
-                    </Button>
-                  </Link>
-                </>
-              )}
+      <header
+        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border/50"
+            : "bg-background"
+        }`}
+      >
+        <div className="container flex items-center justify-between h-16">
+          <FadeIn direction="left">
+            <div className="flex items-center space-x-8">
+              <Logo size="md" />
+              <nav className="hidden lg:flex items-center space-x-6">
+                <Link to="/men" className="text-sm hover:text-primary transition-colors">Men</Link>
+                <Link to="/women" className="text-sm hover:text-primary transition-colors">Women</Link>
+                <Link to="/kids" className="text-sm hover:text-primary transition-colors">Kids</Link>
+                <Link to="/collections" className="text-sm hover:text-primary transition-colors">Collections</Link>
+                <Link to="/sale" className="text-sm text-accent hover:text-accent/80 transition-colors">Sale</Link>
+              </nav>
             </div>
-          </div>
+          </FadeIn>
+
+          <FadeIn direction="right">
+            <div className="flex items-center space-x-4">
+              <Button variant="ghost" size="icon" className="hidden md:flex">
+                <Search className="h-5 w-5" />
+              </Button>
+              
+              <Link to="/wishlist">
+                <Button variant="ghost" size="icon">
+                  <Heart className="h-5 w-5" />
+                </Button>
+              </Link>
+              
+              <Link to="/cart">
+                <Button variant="ghost" size="icon">
+                  <ShoppingCart className="h-5 w-5" />
+                </Button>
+              </Link>
+
+              {auth?.isAuthenticated ? (
+                <UserProfileMenu />
+              ) : (
+                <div className="hidden md:flex items-center space-x-2">
+                  <Link to="/sign-in">
+                    <Button variant="ghost" size="sm">Sign In</Button>
+                  </Link>
+                  <Link to="/sign-up">
+                    <Button variant="nike" size="sm">Join Us</Button>
+                  </Link>
+                </div>
+              )}
+
+              <Button
+                size="icon"
+                variant="ghost"
+                className="lg:hidden"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="4" x2="20" y1="12" y2="12" />
+                  <line x1="4" x2="20" y1="6" y2="6" />
+                  <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+              </Button>
+            </div>
+          </FadeIn>
         </div>
-      )}
-    </header>
+        
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-background border-t border-border/50">
+            <nav className="container py-4 space-y-2">
+              <Link to="/men" className="block py-2 text-sm hover:text-primary transition-colors">Men</Link>
+              <Link to="/women" className="block py-2 text-sm hover:text-primary transition-colors">Women</Link>
+              <Link to="/kids" className="block py-2 text-sm hover:text-primary transition-colors">Kids</Link>
+              <Link to="/collections" className="block py-2 text-sm hover:text-primary transition-colors">Collections</Link>
+              <Link to="/sale" className="block py-2 text-sm text-accent hover:text-accent/80 transition-colors">Sale</Link>
+              {!auth?.isAuthenticated && (
+                <div className="pt-4 space-y-2 border-t border-border/50">
+                  <Link to="/sign-in" className="block">
+                    <Button variant="ghost" className="w-full">Sign In</Button>
+                  </Link>
+                  <Link to="/sign-up" className="block">
+                    <Button variant="nike" className="w-full">Join Us</Button>
+                  </Link>
+                </div>
+              )}
+            </nav>
+          </div>
+        )}
+      </header>
+    </>
   );
 };
 

@@ -36,29 +36,33 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <section className="pt-32 pb-20 md:pt-40 md:pb-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 via-transparent to-transparent -z-10"></div>
-        <HeaderSection />
-        <HeroSection onStartQuiz={handleStartQuiz} />
-      </section>
+    <div className="min-h-screen bg-background">
+      <HeaderSection />
       
-      <FeaturesSection />
-      <QuizSection 
-        showQuiz={showQuiz}
-        onStartQuiz={handleStartQuiz}
-        onComplete={handleQuizComplete}
-      />
-      
-      {quizCompleted && (
-        <section className="py-20 md:py-32" id="recommendations">
-          <Recommendations userAnswers={userAnswers} />
+      <main>
+        <section className="py-12 md:py-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-secondary/20 via-background to-background" />
+          <HeroSection onStartQuiz={handleStartQuiz} />
         </section>
-      )}
-      
-      <TestimonialsSection />
-      <CTASection onStartQuiz={handleStartQuiz} />
-      <FooterSection />
+        
+        <FeaturesSection />
+        
+        <QuizSection 
+          showQuiz={showQuiz}
+          onStartQuiz={handleStartQuiz}
+          onComplete={handleQuizComplete}
+        />
+        
+        {quizCompleted && (
+          <section className="py-20" id="recommendations">
+            <Recommendations userAnswers={userAnswers} />
+          </section>
+        )}
+        
+        <TestimonialsSection />
+        <CTASection onStartQuiz={handleStartQuiz} />
+        <FooterSection />
+      </main>
     </div>
   );
 };
